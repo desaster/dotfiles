@@ -13,6 +13,8 @@ fi
 export VISUAL="vim"
 export EDITOR="vim"
 
+alias tm="tmux attach -t main || tmux new -s main"
+
 PALETTE_SCRIPT="$HOME/.vim/bundle/gruvbox/gruvbox_256palette.sh"
 if [ -f "$PALETTE_SCRIPT" ]; then
     sh "$PALETTE_SCRIPT"
