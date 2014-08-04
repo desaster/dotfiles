@@ -144,7 +144,7 @@ map j gj
 map k gk
 set ignorecase
 set smartcase
-set incsearch
+set noincsearch
 set showmatch
 set hlsearch
 set sidescroll=8
