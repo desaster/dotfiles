@@ -20,7 +20,8 @@ filetype plugin indent on
 set nocompatible
 
 if has("gui_running")
-    set lines=60
+    set lines=58
+    set columns=85 " a bit extra for line numbers
     set titlestring=%<%F
 endif
 "}}}
@@ -64,6 +65,24 @@ let maplocalleader = "\\"
 
 "}}}
 
+" Show line numbers {{{
+
+set numberwidth=5
+function SetLineNumbers()
+    if &columns < 85
+        set nonumber
+        set norelativenumber
+    else
+        "set number
+        set relativenumber
+    endif
+endfunction
+
+au VimResized * call SetLineNumbers()
+call SetLineNumbers()
+
+"}}}
+
 " Tab settings {{{
 set tabstop=8
 set softtabstop=4
@@ -91,6 +110,9 @@ set background=dark
 
 if $NOTHEME != "1"
     set t_Co=256
+    " hard gives a darker bg
+    "let g:gruvbox_contrast="hard"
+    " italic broken via putty
     let g:gruvbox_italic=0
     colorscheme gruvbox
 endif
@@ -101,23 +123,10 @@ set guifont=Consolas:h10
 syn match obsoleteWhiteSpace "[ ]*$"
 " syntax sync fromstart " php needed this, do we still need it?
 
-"highlight link obsoleteWhiteSpace Error
-"highlight Comment cterm=NONE ctermfg=darkcyan guifg=#00BABD
-"highlight Constant cterm=NONE guifg=#BD00BD
-"highlight Identifier cterm=NONE guifg=#00BABD
-"highlight NonText ctermfg=red cterm=NONE guibg=black guifg=darkred
-"highlight Normal guibg=black guifg=grey
-"highlight Special cterm=NONE guifg=#BD0000
-"highlight StatusLine ctermfg=blue ctermbg=white cterm=reverse guifg=darkblue guibg=grey gui=NONE,reverse
-"highlight Visual guibg=grey guifg=black
-"highlight PreProc guifg=#5255FF
-"highlight Statement gui=NONE guifg=#FFFF52
-"highlight Type gui=NONE guifg=#52FF52
-"highlight Folded guibg=#444466 guifg=Cyan
-"highlight link sqlStatement sqlSpecial
-"highlight TabLineSel ctermfg=white ctermbg=blue cterm=none,bold
-"highlight TabLineFill ctermfg=white ctermbg=blue cterm=none
-"highlight TabLine ctermfg=white ctermbg=blue cterm=none
+" theme messes up colors after quit
+if &shell == "/bin/bash"
+    au VimLeave * silent ! echo -e "\033[0m"
+endif
 
 "}}}
 
