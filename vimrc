@@ -100,8 +100,16 @@ set nobackup
 set nowritebackup
 " set backupdir=~/.vim/tmp/backup//
 " set directory=~/.vim/tmp/swap//
-" set undodir=~/.vim/tmp/undo//
 set noswapfile " any need for this anymore?
+
+if has("persistent_undo")
+    set undofile
+    if has("win32")
+        set undodir=$HOME/vimfiles/tmp/undo//
+    else
+        set undodir=~/.vim/tmp/undo//
+    endif
+endif
 "}}}
 
 " Color scheme {{{
