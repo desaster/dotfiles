@@ -1,9 +1,7 @@
 " Author: Upi Tamminen <desaster@>
 
-" Todo {{{
-
-" try airline
-
+" Comments {{{
+" Thanks: https://bitbucket.org/sjl/dotfiles/src/tip/vim/vimrc
 "}}}
 
 " Preamble {{{
@@ -27,8 +25,6 @@ endif
 "}}}
 
 " Basic options {{{
-
-" toggle on
 set autoindent
 set infercase
 set joinspaces
@@ -62,13 +58,11 @@ set t_vb=
 
 let mapleader = ","
 let maplocalleader = "\\"
-
 "}}}
 
 " Show line numbers {{{
-
 set numberwidth=5
-function SetLineNumbers()
+function SetLineNumbers() "{{{
     if &columns < 85
         set nonumber
         set norelativenumber
@@ -76,11 +70,10 @@ function SetLineNumbers()
         "set number
         set relativenumber
     endif
-endfunction
+endfunction "}}}
 
 au VimResized * call SetLineNumbers()
 call SetLineNumbers()
-
 "}}}
 
 " Tab settings {{{
@@ -135,14 +128,11 @@ syn match obsoleteWhiteSpace "[ ]*$"
 if &shell == "/bin/bash"
     au VimLeave * silent ! echo -e "\033[0m"
 endif
-
 "}}}
 
 " X specific stuff  {{{
-
 " X connections only as normal user
 if $USER == "root"|set notitle|else|set title|endif
-
 " }}}
 
 " Search and movement {{{
@@ -176,11 +166,9 @@ if has("autocmd")
     " autocmd BufReadPost * if &filetype != "help" && line("'\"") | exe "normal '\"" | endif
     autocmd BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif
 endif
-
 "}}}
 
 " Folding {{{
-
 set foldlevelstart=0 " start with folds closed
 set foldmethod=marker
 
@@ -211,7 +199,6 @@ function! MyFoldText() " {{{
     return line . '…' . repeat(" ",fillcharcount) . foldedlinecount . '…' . ' '
 endfunction " }}}
 set foldtext=MyFoldText()
-
 "}}}
 
 " Filetype specific stuff {{{
@@ -221,24 +208,22 @@ let php_minlines = 500
 let php_folding = 1
 let php_parent_error_close = 1
 
-function PHP_Syntax_Addons()
+function PHP_Syntax_Addons() "{{{
     syntax match obsoleteWhiteSpace "[ ]*$" containedin=phpRegion
     syntax match tabInsteadOfSpaces "\t" containedin=phpRegion
     highlight link tabInsteadOfSpaces Error
     highlight link obsoleteWhiteSpace Error
-endfunction
+endfunction "}}}
 
 if has("autocmd")
     autocmd BufReadPost,FileReadPost *.php,*.php3 syntax sync fromstart
     autocmd BufReadPost,FileReadPost *.php,*.php3 set formatoptions=tcqlr1
     autocmd BufReadPost,FileReadPost *.php,*.php3 call PHP_Syntax_Addons()
 endif
-
 "}}}
 
 "  settings for C {{{
-
-function FoldBrace()
+function FoldBrace() "{{{
   if getline(v:lnum+1)[0] == '{'
     return '>1'
   endif
@@ -247,14 +232,14 @@ function FoldBrace()
   endif
   " return foldlevel(v:lnum-1)
   return '='
-endfunction
+endfunction "}}}
 
-function CFold()
+function CFold() "{{{
   set foldexpr=FoldBrace()
   set foldmethod=expr
   "set foldmethod=indent
   set foldnestmax=1
-endfunction
+endfunction "}}}
 
 if has("autocmd")
     "autocmd BufReadPost,FileReadPost *.c call CFold()
@@ -264,10 +249,9 @@ if has("autocmd")
 	autocmd BufRead *.c,*.h set formatoptions=croql cindent comments=sr:/*,mb:*,el:*/,://
     augroup END
 endif
-
 "}}}
 
-" }}}
+"}}}
 
 " Convenience mappings {{{
 
@@ -282,4 +266,4 @@ cnoremap <c-a> <home>
 cnoremap <c-e> <end>
 
 inoremap <MiddleMouse> <C-O>:set paste<cr><MiddleMouse><C-O>:set nopaste<CR>
-" }}}
+"}}}
