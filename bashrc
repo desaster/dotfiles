@@ -12,3 +12,9 @@ fi
 
 export VISUAL="vim"
 export EDITOR="vim"
+
+PALETTE_SCRIPT="$HOME/.vim/bundle/gruvbox/gruvbox_256palette.sh"
+if [ -f "$PALETTE_SCRIPT" ]; then
+    sh "$PALETTE_SCRIPT"
+fi
+

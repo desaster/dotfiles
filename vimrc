@@ -1,4 +1,4 @@
-" Author: Upi Tamminen <desaster@gmail>
+" Author: Upi Tamminen <desaster@>
 
 " Todo {{{
 
@@ -88,10 +88,13 @@ set noswapfile " any need for this anymore?
 " Color scheme {{{
 syntax on
 set background=dark
-if has("gui_running")
+
+if $NOTHEME != "1"
     set t_Co=256
+    let g:gruvbox_italic=0
     colorscheme gruvbox
 endif
+
 set guioptions=eg
 set guifont=Consolas:h10
 
@@ -196,7 +199,7 @@ set foldtext=MyFoldText()
 
 " Filetype specific stuff {{{
 
-"  settings for php {{{2
+"  settings for php {{{
 let php_minlines = 500
 let php_folding = 1
 let php_parent_error_close = 1
@@ -216,7 +219,7 @@ endif
 
 "}}}
 
-"  settings for C {{{2
+"  settings for C {{{
 
 function FoldBrace()
   if getline(v:lnum+1)[0] == '{'
@@ -237,7 +240,7 @@ function CFold()
 endfunction
 
 if has("autocmd")
-    autocmd BufReadPost,FileReadPost *.c call CFold()
+    "autocmd BufReadPost,FileReadPost *.c call CFold()
     augroup cprog
 	au!
 	autocmd BufRead *       set formatoptions=tcql nocindent comments&
