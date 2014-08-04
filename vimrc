@@ -116,6 +116,10 @@ if $NOTHEME != "1"
     " italic broken via putty
     let g:gruvbox_italic=0
     colorscheme gruvbox
+
+    let g:solarized_termcolors=256
+    let g:solarized_italic=0
+    "colorscheme solarized
 endif
 
 set guioptions=eg
@@ -199,6 +203,17 @@ function! MyFoldText() " {{{
     return line . '…' . repeat(" ",fillcharcount) . foldedlinecount . '…' . ' '
 endfunction " }}}
 set foldtext=MyFoldText()
+"}}}
+
+" Plugin specific stuff {{{
+
+" NERDtree {{{
+"autocmd StdinReadPre * let s:std_in=1
+"autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+map <C-n> :NERDTreeToggle<CR>
+let g:NERDTreeDirArrows=0
+" }}}
+
 "}}}
 
 " Filetype specific stuff {{{
