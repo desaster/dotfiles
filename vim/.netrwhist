@@ -1,0 +1,11 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =9
+let g:netrw_dirhist_1='/home/desaster/mcu/lpc1xxx/hardfault-test'
+let g:netrw_dirhist_2='/home/desaster/mcu/lpc1xxx'
+let g:netrw_dirhist_3='/home/desaster/twmon/twmon-test/monitors'
+let g:netrw_dirhist_4='/home/desaster/Dropbox/projects/altera/DE0-Nano-BitCoin-Miner/Makomk_Hashers_32_Serial'
+let g:netrw_dirhist_5='/home/desaster/uusipuu/devpuu/data/trivia'
+let g:netrw_dirhist_6='/home/desaster/kippo/MockSSH/examples'
+let g:netrw_dirhist_7='/home/desaster/uusipuu/dev2/modules'
+let g:netrw_dirhist_8='/home/desaster/eve/wartool/wartool'
+let g:netrw_dirhist_9='/home/desaster/uusipuu/devpuu/core'
