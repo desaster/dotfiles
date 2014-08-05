@@ -16,12 +16,6 @@ filetype off
 call pathogen#infect()
 filetype plugin indent on
 set nocompatible
-
-if has("gui_running")
-    set lines=58
-    set columns=85 " a bit extra for line numbers
-    set titlestring=%<%F
-endif
 "}}}
 
 " Basic options {{{
@@ -142,6 +136,17 @@ endif
 " X connections only as normal user
 if $USER == "root"|set notitle|else|set title|endif
 " }}}
+
+" Fancy pansy gui / mouse stuff{{{
+if has("gui_running")
+    set lines=58
+    set columns=85 " a bit extra for line numbers
+    set titlestring=%<%F
+endif
+
+set mouse=a " mouse should work even in terminal
+
+"}}}
 
 " Search and movement {{{
 
