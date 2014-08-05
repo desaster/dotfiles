@@ -113,8 +113,12 @@ if $NOTHEME != "1"
     set t_Co=256
     " hard gives a darker bg
     "let g:gruvbox_contrast="hard"
+
     " italic broken via putty
-    let g:gruvbox_italic=0
+    if !has("gui_running")
+        let g:gruvbox_italic=0
+    endif
+
     colorscheme gruvbox
 
     let g:solarized_termcolors=256
