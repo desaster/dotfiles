@@ -9,15 +9,15 @@ if [ "$PS1" ]; then
     alias sc="screen -dr"
     alias sx="screen -x"
     alias ls='ls --color=auto -Glah'
+
+    PALETTE_SCRIPT="$HOME/.vim/bundle/gruvbox/gruvbox_256palette.sh"
+    if [ -f "$PALETTE_SCRIPT" ]; then
+        sh "$PALETTE_SCRIPT"
+    fi
 fi
 
 export VISUAL="vim"
 export EDITOR="vim"
 
 alias tm="tmux attach -t main || tmux new -s main"
-
-PALETTE_SCRIPT="$HOME/.vim/bundle/gruvbox/gruvbox_256palette.sh"
-if [ -f "$PALETTE_SCRIPT" ]; then
-    sh "$PALETTE_SCRIPT"
-fi
 
