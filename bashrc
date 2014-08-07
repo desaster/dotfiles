@@ -19,5 +19,4 @@ fi
 export VISUAL="vim"
 export EDITOR="vim"
 
-alias tm="tmux attach -t main || tmux new -s main"
-
+alias tm="tmux attach-session -d -t main || tmux new -s main"
