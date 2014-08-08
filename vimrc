@@ -137,7 +137,7 @@ endif
 if $USER == "root"|set notitle|else|set title|endif
 " }}}
 
-" Fancy pansy gui / mouse stuff{{{
+" Fancy pansy gui / mouse stuff {{{
 if has("gui_running")
     set lines=58
     set columns=85 " a bit extra for line numbers
@@ -145,6 +145,7 @@ if has("gui_running")
 endif
 
 set mouse=a " mouse should work even in terminal
+set guioptions=-g " non-gui tabs are nicer
 
 "}}}
 
