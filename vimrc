@@ -50,6 +50,8 @@ set noerrorbells
 set visualbell
 set t_vb=
 
+set updatetime=500
+
 let mapleader = ","
 let maplocalleader = "\\"
 "}}}
@@ -227,14 +229,19 @@ set foldtext=MyFoldText()
 map <F7> :NERDTreeToggle<CR>
 let g:NERDTreeDirArrows=0
 let g:NERDTreeMinimalUI=1
+let g:NERDTreeIgnore = ['\.pyc$']
 
 " Close vim if the only window left open is a NERDTree
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
 " }}}
 
-" Tagline {{{
+" Tagbar {{{
+" also see "updatetime" setting, which is useful with tagbar
 map <F8> :TagbarToggle<CR>
+" let g:tagbar_autoclose = 1
+" let g:tagbar_autofocus = 1
+let g:tagbar_compact = 1
 " }}}
 
 " vim-airline {{{
