@@ -121,7 +121,11 @@ if $NOTHEME != "1"
 endif
 
 set guioptions=eg
-set guifont=Consolas:h10
+if has("win32")
+    set guifont="Consolas:h10"
+else
+    set guifont="Dejavu Sans Mono:h10"
+endif
 
 syn match obsoleteWhiteSpace "[ ]*$"
 " syntax sync fromstart " php needed this, do we still need it?
