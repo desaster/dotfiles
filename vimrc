@@ -191,8 +191,8 @@ set foldlevelstart=0 " start with folds closed
 set foldmethod=marker
 
 " open/close folds with space
-nnoremap <Space> za
-vnoremap <Space> za
+"nnoremap <Space> za
+"vnoremap <Space> za
 
 " make zO recursively open whatever top level fold we're in, no matter where
 " the cursor happens to be
@@ -224,8 +224,17 @@ set foldtext=MyFoldText()
 " NERDtree {{{
 "autocmd StdinReadPre * let s:std_in=1
 "autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-map <C-n> :NERDTreeToggle<CR>
+map <F7> :NERDTreeToggle<CR>
 let g:NERDTreeDirArrows=0
+let g:NERDTreeMinimalUI=1
+
+" Close vim if the only window left open is a NERDTree
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+
+" }}}
+
+" Tagline {{{
+map <F8> :TagbarToggle<CR>
 " }}}
 
 " vim-airline {{{
