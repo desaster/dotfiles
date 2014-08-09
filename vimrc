@@ -141,7 +141,7 @@ endif
 if $USER == "root"|set notitle|else|set title|endif
 " }}}
 
-" Fancy pansy gui / mouse stuff{{{
+" Fancy pansy gui / mouse stuff {{{
 if has("gui_running")
     set lines=58
     set columns=85 " a bit extra for line numbers
@@ -149,6 +149,7 @@ if has("gui_running")
 endif
 
 set mouse=a " mouse should work even in terminal
+set guioptions=-g " non-gui tabs are nicer
 
 "}}}
 
@@ -226,6 +227,12 @@ set foldtext=MyFoldText()
 map <C-n> :NERDTreeToggle<CR>
 let g:NERDTreeDirArrows=0
 " }}}
+
+" vim-airline {{{
+let g:airline#extensions#tabline#enabled = 1
+"let g:airline#extensions#tabline#left_sep = ' '
+"let g:airline#extensions#tabline#left_alt_sep = '|'
+"}}}
 
 "}}}
 
