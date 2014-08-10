@@ -62,8 +62,14 @@ let maplocalleader = "\\"
 "}}}
 
 " Show line numbers {{{
-set numberwidth=3 " 3 is okay for relativenumber
-set relativenumber
+
+if version >= 703
+    set numberwidth=3 " 3 is okay for relativenumber
+    set relativenumber
+else
+    set numberwidth=4
+    set number
+endif
 
 " automatic approach, but doesn't really work with split windows:
 "set numberwidth=5
@@ -79,6 +85,7 @@ set relativenumber
 
 "au VimResized * call SetLineNumbers()
 "call SetLineNumbers()
+
 "}}}
 
 " Indentation settings {{{
@@ -89,8 +96,11 @@ set expandtab
 set nowrap
 set textwidth=78
 
-set colorcolumn=80
-hi ColorColumn ctermbg=black guibg=#222222
+if version >= 703
+    set colorcolumn=80
+    hi ColorColumn ctermbg=black guibg=#222222
+endif
+
 "}}}
 
 " Buffer / Tab settings {{{
