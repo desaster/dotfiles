@@ -148,13 +148,6 @@ endif
 syntax on
 set background=dark
 
-"if match($term,".*256.*") >= 0
-"if $TERM == "xterm-256color"
-"    echo "it matches"
-"else
-"    echo "it doesn't match :("
-"endif
-
 if $NOTHEME != "1" && &t_Co == 256
     "set t_Co=256 " let's trust this works automatically
 
