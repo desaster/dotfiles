@@ -148,6 +148,10 @@ endif
 syntax on
 set background=dark
 
+if has("gui_running") && has("win32")
+    set t_Co=256
+endif
+
 if $NOTHEME != "1" && &t_Co == 256
     "set t_Co=256 " let's trust this works automatically
 
@@ -155,9 +159,11 @@ if $NOTHEME != "1" && &t_Co == 256
     "let g:gruvbox_contrast="hard"
 
     " italic broken via putty
-    if !has("gui_running")
-        let g:gruvbox_italic=0
-    endif
+    "if !has("gui_running")
+    "    let g:gruvbox_italic=0
+    "endif
+    " italic always ugly
+    let g:gruvbox_italic=0
 
     try
         colorscheme gruvbox
@@ -172,13 +178,6 @@ if $NOTHEME != "1" && &t_Co == 256
     "endtry
 endif
 
-set guioptions=eg
-if has("win32")
-    set guifont="Consolas:h10"
-else
-    set guifont="Dejavu Sans Mono:h10"
-endif
-
 syn match obsoleteWhiteSpace "[ ]*$"
 " syntax sync fromstart " php needed this, do we still need it?
 
@@ -188,20 +187,27 @@ if &shell == "/bin/bash"
 endif
 "}}}
 
-" X specific stuff  {{{
-" X connections only as normal user
-if $USER == "root"|set notitle|else|set title|endif
-" }}}
+" GUI settings {{{
 
-" Fancy pansy gui / mouse stuff {{{
+set guioptions=eg
+
 if has("gui_running")
+  if has("gui_gtk2")
+    set guifont=Dejavu Sans Mono:h10
+  elseif has("gui_macvim")
+    set guifont=Menlo\ Regular:h14
+  elseif has("gui_win32")
+    set guifont=Consolas:h10
     set lines=58
-    set columns=85 " a bit extra for line numbers
+    set columns=83
     set titlestring=%<%F
+  endif
 endif
 
+" X connections only as normal user
+if $USER == "root"|set notitle|else|set title|endif
+
 set mouse=a " mouse should work even in terminal
-set guioptions=-g " non-gui tabs are nicer
 
 "}}}
 
