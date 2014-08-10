@@ -19,3 +19,9 @@
 [submodule "vim/bundle/tagbar"]
 	path = vim/bundle/tagbar
 	url = https://github.com/majutsushi/tagbar.git
+[submodule "vim/bundle/vim-pseudocl"]
+	path = vim/bundle/vim-pseudocl
+	url = https://github.com/junegunn/vim-pseudocl.git
+[submodule "vim/bundle/vim-oblique"]
+	path = vim/bundle/vim-oblique
+	url = https://github.com/junegunn/vim-oblique.git

@@ -13,7 +13,12 @@ if version < 600
 endif
 
 filetype off
-call pathogen#infect()
+
+try
+    call pathogen#infect()
+catch /^Vim\%((\a\+)\)\=:E117/
+endtry
+
 filetype plugin indent on
 set nocompatible
 "}}}
@@ -57,22 +62,26 @@ let maplocalleader = "\\"
 "}}}
 
 " Show line numbers {{{
-set numberwidth=5
-function SetLineNumbers() "{{{
-    if &columns < 85
-        set nonumber
-        set norelativenumber
-    else
-        "set number
-        set relativenumber
-    endif
-endfunction "}}}
+set numberwidth=3 " 3 is okay for relativenumber
+set relativenumber
 
-au VimResized * call SetLineNumbers()
-call SetLineNumbers()
+" automatic approach, but doesn't really work with split windows:
+"set numberwidth=5
+"function _SetLineNumbers() "{{{
+"    if &columns < 85
+"        set nonumber
+"        set norelativenumber
+"    else
+"        "set number
+"        set relativenumber
+"    endif
+"endfunction "}}}
+
+"au VimResized * call SetLineNumbers()
+"call SetLineNumbers()
 "}}}
 
-" Tab settings {{{
+" Indentation settings {{{
 set tabstop=8
 set softtabstop=4
 set shiftwidth=4
@@ -83,6 +92,40 @@ set textwidth=78
 set colorcolumn=80
 hi ColorColumn ctermbg=black guibg=#222222
 "}}}
+
+" Buffer / Tab settings {{{
+
+" No need to :w before being allowed to switch buffers
+set hidden
+
+" Move to the next buffer
+nmap <leader>l :bnext<CR>
+
+" Move to the previous buffer
+nmap <leader>h :bprevious<CR>
+
+" Close the current buffer
+nmap <leader>bq :bd<CR>
+
+" List all buffers
+nmap <leader>bl :ls<CR>
+
+" new empty buffer
+nmap <leader>bn :enew<CR>
+
+" move to buffer n from left
+nmap <leader>1 :brewind<CR>:bnext 0<CR>
+nmap <leader>2 :brewind<CR>:bnext 1<CR>
+nmap <leader>3 :brewind<CR>:bnext 2<CR>
+nmap <leader>4 :brewind<CR>:bnext 3<CR>
+nmap <leader>5 :brewind<CR>:bnext 4<CR>
+nmap <leader>6 :brewind<CR>:bnext 5<CR>
+nmap <leader>7 :brewind<CR>:bnext 6<CR>
+nmap <leader>8 :brewind<CR>:bnext 7<CR>
+nmap <leader>9 :brewind<CR>:bnext 8<CR>
+nmap <leader>0 :brewind<CR>:bnext 9<CR>
+
+" }}}
 
 " Backups {{{
 set nobackup
@@ -105,8 +148,16 @@ endif
 syntax on
 set background=dark
 
-if $NOTHEME != "1"
-    set t_Co=256
+"if match($term,".*256.*") >= 0
+"if $TERM == "xterm-256color"
+"    echo "it matches"
+"else
+"    echo "it doesn't match :("
+"endif
+
+if $NOTHEME != "1" && &t_Co == 256
+    "set t_Co=256 " let's trust this works automatically
+
     " hard gives a darker bg
     "let g:gruvbox_contrast="hard"
 
@@ -115,11 +166,17 @@ if $NOTHEME != "1"
         let g:gruvbox_italic=0
     endif
 
-    colorscheme gruvbox
+    try
+        colorscheme gruvbox
+    catch /E185:/
+    endtry
 
-    let g:solarized_termcolors=256
-    let g:solarized_italic=0
-    "colorscheme solarized
+    "let g:solarized_termcolors=256
+    "let g:solarized_italic=0
+    "try
+    "    colorscheme solarized
+    "catch /E185:/
+    "endtry
 endif
 
 set guioptions=eg
@@ -246,9 +303,43 @@ let g:tagbar_compact = 1
 
 " vim-airline {{{
 let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#fnamemod = ':t'
 "let g:airline#extensions#tabline#left_sep = ' '
 "let g:airline#extensions#tabline#left_alt_sep = '|'
 "}}}
+
+" tslime / tmux integration {{{
+
+let g:tmuxcmd = ""
+
+function SendCommandToTmux() " {{{
+    if g:tmuxcmd == ""
+        call ResetTmuxCommand()
+    end
+    call Send_to_Tmux(g:tmuxcmd . "\n")
+endfunction " }}}
+
+function ResetTmuxCommand() " {{{
+    let g:tmuxcmd = input("command to send to tmux pane: ", "")
+    echo "OK"
+endfunction " }}}
+
+" no worky, else we could use this to do more resetting at once
+function! ResetTSlimeVars() " {{{
+    execute "normal \<Plug>SetTmuxVars"
+endfunction " }}}
+
+function! ResetTSlimePaneNumber() " {{{
+    let g:tslime['pane'] = input("pane number: ", "", "custom,Tmux_Pane_Numbers")
+endfunction " }}}
+
+map <leader>Tn :call ResetTSlimePaneNumber()<CR>
+"map <leader>Ts :call ResetTSlimeVars()<CR>
+map <leader>Ts <Plug>SetTmuxVars
+map <leader>Tc :call ResetTmuxCommand()<CR>
+nmap <silent> <F5> :call SendCommandToTmux()<CR>
+
+" }}}
 
 "}}}
 
