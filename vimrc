@@ -14,16 +14,14 @@ endif
 
 filetype off
 
-try
-    call pathogen#infect()
-catch /^Vim\%((\a\+)\)\=:E117/
-endtry
+silent! call pathogen#infect()
 
 filetype plugin indent on
 set nocompatible
 "}}}
 
 " Basic options {{{
+set encoding=utf8
 set autoindent
 set infercase
 set joinspaces
@@ -63,7 +61,7 @@ let maplocalleader = "\\"
 
 " Show line numbers {{{
 
-if version >= 703
+if has("relativenumber")
     set numberwidth=3 " 3 is okay for relativenumber
     set relativenumber
 else
@@ -96,7 +94,7 @@ set expandtab
 set nowrap
 set textwidth=78
 
-if version >= 703
+if has("colorcolumn")
     set colorcolumn=80
     hi ColorColumn ctermbg=black guibg=#222222
 endif
@@ -207,6 +205,7 @@ if has("gui_running")
   elseif has("gui_macvim")
     set guifont=Menlo\ Regular:h14
   elseif has("gui_win32")
+    "set guifont=Consolas_for_Powerline_FixedD:h10:cANSI,Consolas:h10
     set guifont=Consolas:h10
     set lines=58
     set columns=83
@@ -313,8 +312,37 @@ let g:tagbar_compact = 1
 " vim-airline {{{
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#fnamemod = ':t'
+
+" eye candy
+"let g:airline_powerline_fonts = 1
 "let g:airline#extensions#tabline#left_sep = ' '
 "let g:airline#extensions#tabline#left_alt_sep = '|'
+"let g:airline_symbols = {}
+"let g:airline_left_sep = "\u2b80" "use double quotes here
+"let g:airline_left_alt_sep = "\u2b81"
+"let g:airline_right_sep = "\u2b82"
+"let g:airline_right_alt_sep = "\u2b83"
+"let g:airline_symbols.branch = "\u2b60"
+"let g:airline_symbols.readonly = "\u2b64"
+"let g:airline_symbols.linenr = "\u2b61"
+"let g:airline#extensions#tabline#left_sep = "\u2b80"
+
+" less eye candy
+let g:airline_symbols = {}
+let g:airline_left_sep=''
+let g:airline_right_sep=''
+let g:airline_left_alt_sep='|'
+let g:airline_right_alt_sep='|'
+let g:airline_symbols.branch = ""
+let g:airline_symbols.readonly = ""
+let g:airline_symbols.linenr = ""
+let g:airline#extensions#tabline#left_sep = ""
+let g:airline_powerline_fonts = 0
+
+" this apparently causes lag
+let g:airline#extensions#whitespace#enabled = 0
+" let g:airline#extensions#branch#enabled = 0
+
 "}}}
 
 " tslime / tmux integration {{{
