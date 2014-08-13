@@ -8,7 +8,7 @@ if [ "$PS1" ]; then
     PS1='\u@\h \w \$ '
     alias sc="screen -dr"
     alias sx="screen -x"
-    alias ls='ls --color=auto -Glah'
+    alias ls='ls --color=auto'
 
     PALETTE_SCRIPT="$HOME/.vim/bundle/gruvbox/gruvbox_256palette.sh"
     if [ -f "$PALETTE_SCRIPT" ]; then
