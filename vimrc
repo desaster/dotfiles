@@ -430,6 +430,18 @@ if has("autocmd")
 endif
 "}}}
 
+"  settings for XML {{{
+
+let g:xml_syntax_folding = 1
+if has("autocmd")
+    augroup xml
+	au!
+	autocmd BufRead *       set foldmethod=marker
+	autocmd BufRead *.xml   set foldmethod=syntax
+    augroup END
+endif
+"}}}
+
 "}}}
 
 " Convenience mappings {{{
