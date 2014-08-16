@@ -61,7 +61,7 @@ let maplocalleader = "\\"
 
 " Show line numbers {{{
 
-if has("relativenumber")
+if version >= 703
     set numberwidth=3 " 3 is okay for relativenumber
     set relativenumber
 else
@@ -94,7 +94,7 @@ set expandtab
 set nowrap
 set textwidth=78
 
-if has("colorcolumn")
+if version >= 703
     set colorcolumn=80
     hi ColorColumn ctermbg=black guibg=#222222
 endif
