@@ -21,6 +21,7 @@ set nocompatible
 "}}}
 
 " Basic options {{{
+scriptencoding=utf8
 set encoding=utf8
 set autoindent
 set infercase
@@ -133,6 +134,11 @@ nmap <leader>8 :brewind<CR>:bnext 7<CR>
 nmap <leader>9 :brewind<CR>:bnext 8<CR>
 nmap <leader>0 :brewind<CR>:bnext 9<CR>
 
+" http://stackoverflow.com/questions/12328277/vim-remote-silent-always-opens-no-name-buffer-for-first-file
+if bufname('%') == ''
+  set bufhidden=wipe
+endif
+
 " }}}
 
 " Backups {{{
@@ -152,7 +158,7 @@ if has("persistent_undo")
 endif
 "}}}
 
-" Color scheme {{{
+" Color scheme & other style options {{{
 syntax on
 set background=dark
 
@@ -192,6 +198,11 @@ syn match obsoleteWhiteSpace "[ ]*$"
 " theme messes up colors after quit
 if &shell == "/bin/bash"
     au VimLeave * silent ! echo -e "\033[0m"
+endif
+
+" utf8 pipe character
+if has("multi_byte") && &encoding == "utf-8"
+    set fillchars=vert:â”‚,fold:\ 
 endif
 "}}}
 
@@ -281,7 +292,7 @@ function! MyFoldText() " {{{
 
     let line = strpart(line, 0, windowwidth - 2 -len(foldedlinecount))
     let fillcharcount = windowwidth - len(line) - len(foldedlinecount)
-    return line . '…' . repeat(" ",fillcharcount) . foldedlinecount . '…' . ' '
+    return line . '*' . repeat(" ",fillcharcount) . foldedlinecount . '*' . ' '
 endfunction " }}}
 set foldtext=MyFoldText()
 "}}}
@@ -349,11 +360,18 @@ let g:airline#extensions#whitespace#enabled = 0
 
 let g:tmuxcmd = ""
 
-function SendCommandToTmux() " {{{
+function SendCommandToTmux(...) " {{{
     if g:tmuxcmd == ""
         call ResetTmuxCommand()
     end
-    call Send_to_Tmux(g:tmuxcmd . "\n")
+
+    let cmd = g:tmuxcmd
+    if a:0 > 0 && strlen(a:1) > 0
+        let cmd .= " " . a:1
+    endif
+    let cmd .= "\n"
+
+    call Send_to_Tmux(cmd)
 endfunction " }}}
 
 function ResetTmuxCommand() " {{{
@@ -375,6 +393,11 @@ map <leader>Tn :call ResetTSlimePaneNumber()<CR>
 map <leader>Ts <Plug>SetTmuxVars
 map <leader>Tc :call ResetTmuxCommand()<CR>
 nmap <silent> <F5> :call SendCommandToTmux()<CR>
+
+" for running apt-get removes
+nmap <F2> "zyiW:call SendCommandToTmux(@z)<CR>
+
+" hello
 
 " }}}
 
@@ -439,6 +462,13 @@ if has("autocmd")
 	autocmd BufRead *       set foldmethod=marker
 	autocmd BufRead *.xml   set foldmethod=syntax
     augroup END
+endif
+"}}}
+
+"  settings for VB {{{
+
+if has("autocmd")
+    autocmd BufReadPost,FileReadPost *.vb set ft=vb
 endif
 "}}}
 
