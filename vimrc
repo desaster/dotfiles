@@ -302,13 +302,20 @@ set foldtext=MyFoldText()
 " NERDtree {{{
 "autocmd StdinReadPre * let s:std_in=1
 "autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-map <F7> :NERDTreeToggle<CR>
-let g:NERDTreeDirArrows=0
-let g:NERDTreeMinimalUI=1
-let g:NERDTreeIgnore = ['\.pyc$']
+"map <F7> :NERDTreeToggle<CR>
+"let g:NERDTreeDirArrows=0
+"let g:NERDTreeMinimalUI=1
+"let g:NERDTreeIgnore = ['\.pyc$']
 
 " Close vim if the only window left open is a NERDTree
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+"autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+
+" }}}
+
+" VimFiler {{{
+
+map <F7> :VimFilerExplorer<CR>
+let g:vimfiler_as_default_explorer = 1
 
 " }}}
 
