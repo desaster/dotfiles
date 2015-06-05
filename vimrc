@@ -14,10 +14,30 @@ endif
 
 filetype off
 
-silent! call pathogen#infect()
-
 filetype plugin indent on
 set nocompatible
+"}}}
+
+" Plugin setup {{{
+"silent! call pathogen#infect()
+call plug#begin('~/.vim/plugged')
+
+"Plug 'tomasr/molokai'
+Plug 'morhetz/gruvbox'
+
+Plug 'majutsushi/tagbar'
+
+Plug 'bling/vim-airline'
+
+Plug 'jpalardy/vim-slime'
+
+Plug 'Shougo/unite.vim' | Plug 'Shougo/vimfiler.vim', { 'on': 'VimFilerExplorer' }
+
+Plug 'tpope/vim-fugitive'
+
+call plug#end()
+
+
 "}}}
 
 " Basic options {{{
