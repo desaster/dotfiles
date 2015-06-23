@@ -29,11 +29,11 @@ Plug 'majutsushi/tagbar'
 
 Plug 'bling/vim-airline'
 
-Plug 'jpalardy/vim-slime'
-
 Plug 'Shougo/unite.vim' | Plug 'Shougo/vimfiler.vim', { 'on': 'VimFilerExplorer' }
 
 Plug 'tpope/vim-fugitive'
+
+Plug 'epeli/slimux', { 'on': [ 'SendCommandToTmux', 'SlimuxShellConfigure', 'SlimuxShellLast', 'SlimuxShellRun' ] }
 
 call plug#end()
 
@@ -383,7 +383,7 @@ let g:airline#extensions#whitespace#enabled = 0
 
 "}}}
 
-" tslime / tmux integration {{{
+" slimux / tmux integration {{{
 
 let g:tmuxcmd = ""
 
@@ -398,31 +398,15 @@ function SendCommandToTmux(...) " {{{
     endif
     let cmd .= "\n"
 
-    call Send_to_Tmux(cmd)
+    call SendToTmux(cmd)
 endfunction " }}}
 
-function ResetTmuxCommand() " {{{
-    let g:tmuxcmd = input("command to send to tmux pane: ", "")
-    echo "OK"
-endfunction " }}}
-
-" no worky, else we could use this to do more resetting at once
-function! ResetTSlimeVars() " {{{
-    execute "normal \<Plug>SetTmuxVars"
-endfunction " }}}
-
-function! ResetTSlimePaneNumber() " {{{
-    let g:tslime['pane'] = input("pane number: ", "", "custom,Tmux_Pane_Numbers")
-endfunction " }}}
-
-map <leader>Tn :call ResetTSlimePaneNumber()<CR>
-"map <leader>Ts :call ResetTSlimeVars()<CR>
-map <leader>Ts <Plug>SetTmuxVars
-map <leader>Tc :call ResetTmuxCommand()<CR>
-nmap <silent> <F5> :call SendCommandToTmux()<CR>
+map <leader>Ts :SlimuxShellConfigure<CR>
+nmap <silent> <F5> :SlimuxShellLast<CR>
 
 " for running apt-get removes
-nmap <F2> "zyiW:call SendCommandToTmux(@z)<CR>
+nmap <F2> "zyiW:execute "SlimuxShellRun " . @z<CR>
+nmap <F3> "zyiW:echo @z<CR>
 
 " hello
 
@@ -514,4 +498,10 @@ cnoremap <c-a> <home>
 cnoremap <c-e> <end>
 
 inoremap <MiddleMouse> <C-O>:set paste<cr><MiddleMouse><C-O>:set nopaste<CR>
+
+" save via sudo
+if !has("win32")
+    cmap w!! w !sudo tee > /dev/null %
+endif
+
 "}}}
