@@ -76,8 +76,10 @@ set t_vb=
 
 set updatetime=500
 
-let mapleader = ","
+let mapleader = "\\"
 let maplocalleader = "\\"
+" this is a workaround so the leader shows up in showcmd
+map <Space> <Leader>
 "}}}
 
 " Show line numbers {{{
