@@ -37,7 +37,6 @@ Plug 'epeli/slimux', { 'on': [ 'SendCommandToTmux', 'SlimuxShellConfigure', 'Sli
 
 call plug#end()
 
-
 "}}}
 
 " Basic options {{{
@@ -321,16 +320,16 @@ set foldtext=MyFoldText()
 
 " Plugin specific stuff {{{
 
-" NERDtree {{{
-"autocmd StdinReadPre * let s:std_in=1
-"autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-"map <F7> :NERDTreeToggle<CR>
-"let g:NERDTreeDirArrows=0
-"let g:NERDTreeMinimalUI=1
-"let g:NERDTreeIgnore = ['\.pyc$']
+" Unite {{{
 
-" Close vim if the only window left open is a NERDTree
-"autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+" http://www.codeography.com/2013/06/17/replacing-all-the-things-with-unite-vim.html
+let g:unite_source_history_yank_enable = 1
+call unite#filters#matcher_default#use(['matcher_fuzzy'])
+" file_rec requires vimproc
+"nnoremap <leader>t :<C-u>Unite -no-split -buffer-name=files   -start-insert file_rec/async:!<cr>
+nnoremap <leader>f :<C-u>Unite -buffer-name=files -start-insert file<cr>
+nnoremap <leader>e :<C-u>Unite -buffer-name=buffer buffer<cr>
+nnoremap <leader>y :<C-u>Unite -buffer-name=yank history/yank<cr>
 
 " }}}
 
@@ -408,9 +407,7 @@ nmap <silent> <F5> :SlimuxShellLast<CR>
 
 " for running apt-get removes
 nmap <F2> "zyiW:execute "SlimuxShellRun " . @z<CR>
-nmap <F3> "zyiW:echo @z<CR>
-
-" hello
+"nmap <F3> "zyiW:echo @z<CR>
 
 " }}}
 
@@ -505,5 +502,17 @@ inoremap <MiddleMouse> <C-O>:set paste<cr><MiddleMouse><C-O>:set nopaste<CR>
 if !has("win32")
     cmap w!! w !sudo tee > /dev/null %
 endif
+
+" toggle syntax highlighting
+
+"function ToggleSyntax() "{{{
+"    if exists("g:syntax_on")
+"        syntax off
+"    else
+"        syntax enable
+"    endif
+"endfunction
+"
+"map <leader>s :call ToggleSyntax()<CR>
 
 "}}}
