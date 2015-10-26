@@ -16,6 +16,12 @@ filetype off
 
 filetype plugin indent on
 set nocompatible
+
+" Add git to PATH on win32 for vim-plug
+if has("win32")
+    let $PATH=$PATH . ";$PATH;C:\\Program Files (x86)\\Git\\bin"
+endif
+
 "}}}
 
 " Plugin setup {{{
