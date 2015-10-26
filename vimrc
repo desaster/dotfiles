@@ -35,6 +35,8 @@ Plug 'tpope/vim-fugitive'
 
 Plug 'epeli/slimux', { 'on': [ 'SendCommandToTmux', 'SlimuxShellConfigure', 'SlimuxShellLast', 'SlimuxShellRun' ] }
 
+Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
+
 call plug#end()
 
 "}}}
