@@ -43,7 +43,15 @@ Plug 'epeli/slimux', { 'on': [ 'SendCommandToTmux', 'SlimuxShellConfigure', 'Sli
 
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 
+Plug 'vim-scripts/dbext.vim', { 'for': 'sql' }
+
+Plug 'davidhalter/jedi-vim', { 'for': 'python' }
+
 call plug#end()
+
+for f in split(glob('~/.vim/vimrc.d/*.vim'), '\n')
+    execute 'source' f
+endfor
 
 "}}}
 
@@ -178,6 +186,7 @@ set nowritebackup
 set noswapfile " any need for this anymore?
 
 if has("persistent_undo")
+    set undolevels=5000
     set undofile
     if has("win32")
         set undodir=$HOME/vimfiles/tmp/undo//
@@ -277,6 +286,10 @@ set gdefault
 " moving to them
 nnoremap n nzzzv
 nnoremap N Nzzzv
+
+" clear search matches
+nmap <silent> <BS>  :nohlsearch<CR>
+"nnoremap <silent> <BS> :nohlsearch<CR><BS>
 
 " don't move on *
 nnoremap * *<c-o>
