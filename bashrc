@@ -8,6 +8,16 @@ function prompt_with_git {
     PS1="\u@\h \w $__git_branch\$ "
 }
 
+function venv3 {
+    if [ -a "$1" ]
+    then
+        echo "File or directory already exists: $1"
+        return
+    fi
+    virtualenv --python=/usr/bin/python3.4 "$1"
+}
+
+
 # If running interactively, then:
 if [ "$PS1" ]; then
     PS1="\u@\h \w \$ "
