@@ -47,6 +47,8 @@ Plug 'vim-scripts/dbext.vim', { 'for': 'sql' }
 
 Plug 'davidhalter/jedi-vim', { 'for': 'python' }
 
+Plug 'qpkorr/vim-bufkill'
+
 call plug#end()
 
 for f in split(glob('~/.vim/vimrc.d/*.vim'), '\n')
@@ -78,11 +80,12 @@ set pastetoggle=<F10>
 set report=0
 set selection=exclusive
 set shortmess=aoOIt
-set showbreak=+
+set showbreak=←
 set viminfo='20,\"200
 set virtualedit=block
 "set statusline=[%n]\ %F\ %([%Y%M%R%H%W]\ %)%=(%b,0x%B)\ c/%l\ r/%c\ %p%%
 set showcmd
+set wildmenu
 
 " bells off
 set noerrorbells
