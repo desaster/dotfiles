@@ -98,6 +98,11 @@ let mapleader = "\\"
 let maplocalleader = "\\"
 " this is a workaround so the leader shows up in showcmd
 map <Space> <Leader>
+
+" Show the cursorline for the focused window
+set cursorline
+autocmd WinEnter * setlocal cursorline
+autocmd WinLeave * setlocal nocursorline
 "}}}
 
 " Show line numbers {{{
@@ -249,7 +254,7 @@ endif
 
 " GUI settings {{{
 
-set guioptions=eg
+set guioptions=egc
 
 if has("gui_running")
   if has("gui_gtk2")
