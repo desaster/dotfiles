@@ -109,6 +109,7 @@ autocmd WinLeave * setlocal nocursorline
 
 if version >= 703
     set numberwidth=3 " 3 is okay for relativenumber
+    set number " also shows current line number
     set relativenumber
 else
     set numberwidth=4
