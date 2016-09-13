@@ -140,6 +140,14 @@ set expandtab
 set nowrap
 set textwidth=78
 
+" new in 8.0, but some 7.4 versions also have this
+try
+    set breakindent
+    set breakindentopt=shift:3
+catch /^Vim\%((\a\+)\)\=:E518/
+    " older vim version
+endtry
+
 if version >= 703
     set colorcolumn=80
     hi ColorColumn ctermbg=black guibg=#222222
@@ -440,6 +448,10 @@ nmap <F2> "zyiW:execute "SlimuxShellRun " . @z<CR>
 
 " }}}
 
+" jedi-vim {{{
+let g:jedi#popup_on_dot = 0
+" }}}
+
 "}}}
 
 " Filetype specific stuff {{{
@@ -543,5 +555,14 @@ endif
 "endfunction
 "
 "map <leader>s :call ToggleSyntax()<CR>
+
+
+" https://github.com/stoeffel/.dotfiles/blob/master/vim/visual-at.vim
+xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
+
+function! ExecuteMacroOverVisualRange()
+    echo "@".getcmdline()
+    execute ":'<,'>normal @".nr2char(getchar())
+endfunction
 
 "}}}
