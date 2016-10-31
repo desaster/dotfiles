@@ -1,0 +1,14 @@
+set bell-style none
+
+set editing-mode vi
+$if mode=vi
+    set keymap vi-command
+    set show-mode-in-prompt on
+
+    # These are for vi-command mode
+    Control-l: clear-screen
+
+    set keymap vi-insert
+    # these are for vi-insert mode
+    Control-l: clear-screen
+$endif
