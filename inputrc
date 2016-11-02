@@ -11,4 +11,6 @@ $if mode=vi
     set keymap vi-insert
     # these are for vi-insert mode
     Control-l: clear-screen
+    "": backward-kill-word
+    "": backward-kill-word
 $endif
