@@ -567,3 +567,19 @@ function! ExecuteMacroOverVisualRange()
 endfunction
 
 "}}}
+
+" Final tasks {{{
+
+" Include local vimrc, if exists
+
+if has("win32")
+    if !empty(glob("~/_vimrc_local"))
+        source ~/_vimrc_local
+    endif
+else
+    if !empty(glob("~/.vimrc_local"))
+       source ~/.vimrc_local
+    endif
+endif
+
+"}}}
