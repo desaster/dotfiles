@@ -13,4 +13,7 @@ $if mode=vi
     Control-l: clear-screen
     "": backward-kill-word
     "": backward-kill-word
+
+    set vi-ins-mode-string "+"
+    set vi-cmd-mode-string ":"
 $endif
