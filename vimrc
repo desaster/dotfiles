@@ -49,6 +49,14 @@ Plug 'davidhalter/jedi-vim', { 'for': 'python' }
 
 Plug 'qpkorr/vim-bufkill'
 
+Plug 'udalov/kotlin-vim'
+
+Plug 'ARM9/arm-syntax-vim'
+
+Plug 'tomtom/tcomment_vim'
+
+Plug 'kien/ctrlp.vim'
+
 call plug#end()
 
 for f in split(glob('~/.vim/vimrc.d/*.vim'), '\n')
