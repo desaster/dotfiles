@@ -461,6 +461,10 @@ nmap <F2> "zyiW:execute "SlimuxShellRun " . @z<CR>
 let g:jedi#popup_on_dot = 0
 " }}}
 
+" ctrlp {{{
+let g:ctrlp_by_filename = 1
+" }}}
+
 "}}}
 
 " Filetype specific stuff {{{
