@@ -31,7 +31,7 @@ if [ "$PS1" ]; then
     alias sx="screen -x"
     alias ls='ls --color=auto'
 
-    PALETTE_SCRIPT="$HOME/.vim/bundle/gruvbox/gruvbox_256palette.sh"
+    PALETTE_SCRIPT="$HOME/.vim/plugged/gruvbox/gruvbox_256palette.sh"
     if [ -f "$PALETTE_SCRIPT" ]; then
         sh "$PALETTE_SCRIPT"
     fi
