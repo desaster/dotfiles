@@ -201,9 +201,16 @@ nmap <leader>9 :brewind<CR>:bnext 8<CR>
 nmap <leader>0 :brewind<CR>:bnext 9<CR>
 
 " http://stackoverflow.com/questions/12328277/vim-remote-silent-always-opens-no-name-buffer-for-first-file
-if bufname('%') == ''
-  set bufhidden=wipe
-endif
+" https://paste2.org/bcjaa1Y0
+" Delete empty buffers, specially for files opened with --remote option
+autocmd BufAdd * :call <SID>DeleteBufferIfEmpty()
+function s:DeleteBufferIfEmpty()
+    if bufname('%') == ''
+        bwipe
+        " This will trigger filetype detection, mainly to trigger syntax highlighting
+        doautocmd BufRead
+    endif
+endfunction
 
 " }}}
 
