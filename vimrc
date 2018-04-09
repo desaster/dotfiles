@@ -57,6 +57,10 @@ Plug 'tomtom/tcomment_vim'
 
 Plug 'kien/ctrlp.vim'
 
+Plug 'haya14busa/vim-poweryank'
+
+Plug 'PProvost/vim-ps1'
+
 call plug#end()
 
 for f in split(glob('~/.vim/vimrc.d/*.vim'), '\n')
