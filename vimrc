@@ -61,6 +61,10 @@ Plug 'haya14busa/vim-poweryank'
 
 Plug 'PProvost/vim-ps1'
 
+Plug 'leissa/vim-acme', { 'for': 'asm' }
+
+Plug 'sirtaj/vim-openscad', { 'for': 'openscad' }
+
 call plug#end()
 
 for f in split(glob('~/.vim/vimrc.d/*.vim'), '\n')
@@ -291,11 +295,7 @@ if has("gui_running")
     set guifont=Menlo\ Regular:h14
   elseif has("gui_win32")
     "set guifont=Consolas_for_Powerline_FixedD:h10:cANSI,Consolas:h10
-    try
-        set guifont=Inconsolata:h12
-    catch /E596:/
-        set guifont=Consolas:h10
-    endtry
+    set guifont=Consolas:h10
     set lines=58
     set columns=83
     set titlestring=%<%F
