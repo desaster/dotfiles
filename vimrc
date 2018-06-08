@@ -43,8 +43,6 @@ Plug 'epeli/slimux', { 'on': [ 'SendCommandToTmux', 'SlimuxShellConfigure', 'Sli
 
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 
-Plug 'vim-scripts/dbext.vim', { 'for': 'sql' }
-
 Plug 'davidhalter/jedi-vim', { 'for': 'python' }
 
 Plug 'qpkorr/vim-bufkill'
@@ -64,6 +62,8 @@ Plug 'PProvost/vim-ps1'
 Plug 'leissa/vim-acme', { 'for': 'asm' }
 
 Plug 'sirtaj/vim-openscad', { 'for': 'openscad' }
+
+Plug 'leafgarland/typescript-vim'
 
 call plug#end()
 
