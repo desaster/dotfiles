@@ -480,69 +480,31 @@ let g:jedi#popup_on_dot = 0
 let g:ctrlp_by_filename = 1
 " }}}
 
+" completion {{{
+imap <c-space> <Plug>(asyncomplete_force_refresh)
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <cr> pumvisible() ? "\<C-y>\<cr>" : "\<cr>"
+autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
+
+if executable('typescript-language-server')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'typescript-language-server',
+        \ 'cmd': {server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
+        \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'tsconfig.json'))},
+        \ 'whitelist': ['typescript'],
+        \ })
+endif
+
+
+" }}}
+
 "}}}
 
 " Filetype specific stuff {{{
-
-"  settings for php {{{
-let php_minlines = 500
-let php_folding = 1
-let php_parent_error_close = 1
-
-function PHP_Syntax_Addons() "{{{
-    syntax match obsoleteWhiteSpace "[ ]*$" containedin=phpRegion
-    syntax match tabInsteadOfSpaces "\t" containedin=phpRegion
-    highlight link tabInsteadOfSpaces Error
-    highlight link obsoleteWhiteSpace Error
-endfunction "}}}
-
-if has("autocmd")
-    autocmd BufReadPost,FileReadPost *.php,*.php3 syntax sync fromstart
-    autocmd BufReadPost,FileReadPost *.php,*.php3 set formatoptions=tcqlr1
-    autocmd BufReadPost,FileReadPost *.php,*.php3 call PHP_Syntax_Addons()
-endif
-"}}}
-
-"  settings for C {{{
-function FoldBrace() "{{{
-  if getline(v:lnum+1)[0] == '{'
-    return '>1'
-  endif
-  if getline(v:lnum)[0] == '}'
-    return '<1'
-  endif
-  " return foldlevel(v:lnum-1)
-  return '='
-endfunction "}}}
-
-function CFold() "{{{
-  set foldexpr=FoldBrace()
-  set foldmethod=expr
-  "set foldmethod=indent
-  set foldnestmax=1
-endfunction "}}}
-
-if has("autocmd")
-    "autocmd BufReadPost,FileReadPost *.c call CFold()
-    augroup cprog
-	au!
-	autocmd BufRead *       set formatoptions=tcql nocindent comments&
-	autocmd BufRead *.c,*.h set formatoptions=croql cindent comments=sr:/*,mb:*,el:*/,://
-    augroup END
-endif
-"}}}
-
-"  settings for XML {{{
-
-let g:xml_syntax_folding = 1
-if has("autocmd")
-    augroup xml
-	au!
-	autocmd BufRead *       set foldmethod=marker
-	autocmd BufRead *.xml   set foldmethod=syntax
-    augroup END
-endif
-"}}}
+"
+" (most of the filesystem specific stuff is now in ~/.vim/ftplugin/)
+"
 
 "  settings for VB {{{
 
