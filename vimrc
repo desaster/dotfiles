@@ -43,8 +43,6 @@ Plug 'epeli/slimux', { 'on': [ 'SendCommandToTmux', 'SlimuxShellConfigure', 'Sli
 
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 
-Plug 'davidhalter/jedi-vim', { 'for': 'python' }
-
 Plug 'qpkorr/vim-bufkill'
 
 Plug 'udalov/kotlin-vim'
@@ -470,10 +468,6 @@ nmap <silent> <F5> :SlimuxShellLast<CR>
 nmap <F2> "zyiW:execute "SlimuxShellRun " . @z<CR>
 "nmap <F3> "zyiW:echo @z<CR>
 
-" }}}
-
-" jedi-vim {{{
-let g:jedi#popup_on_dot = 0
 " }}}
 
 " ctrlp {{{
