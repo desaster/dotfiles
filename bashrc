@@ -35,6 +35,10 @@ if [ "$PS1" ]; then
     if [ -f "$PALETTE_SCRIPT" ]; then
         sh "$PALETTE_SCRIPT"
     fi
+
+    # vi mode, done here instead of .inputrc since not all readline command
+    # lines work well with it
+    set -o vi
 fi
 
 export VISUAL="vim"
