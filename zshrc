@@ -25,9 +25,16 @@ if [ "$PS1" ]; then
     fi
 
     setopt VI
+
+    bindkey '' backward-kill-word
+    bindkey '' backward-kill-word
 fi
 
 export VISUAL="vim"
 export EDITOR="vim"
 
+export PATH="$PATH:$HOME/bin"
+
 alias tm="tmux attach-session -d -t main || tmux new -s main"
+
+# vim: set sw=4 sts=4:
