@@ -1,0 +1,6 @@
+Windows Registry Editor Version 5.00
+
+[HKEY_CURRENT_USER\SOFTWARE\Classes\*\shell\Open with Neovim]
+
+[HKEY_CURRENT_USER\SOFTWARE\Classes\*\shell\Open with Neovim\command]
+@="cmd /c start nvim-qt.exe \"%1\""
