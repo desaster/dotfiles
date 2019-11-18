@@ -1,6 +1,6 @@
 " Author: Upi Tamminen <desaster@>
 
-source ~/.config/nvim/plugins.vim
+execute 'source ' . fnameescape(stdpath('config') . '/plugins.vim')
 
 " https://jdhao.github.io/2019/01/17/nvim_qt_settings_on_windows/
 " In Nvim-qt, when we press Shift+insert in insert mode, it will add a literal
