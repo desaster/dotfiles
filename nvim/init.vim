@@ -178,7 +178,7 @@ noremap L g_
 
 " Folding {{{
 set foldlevelstart=0 " start with folds closed
-set foldmethod=marker
+set foldmethod=syntax
 
 " open/close folds with space
 "nnoremap <Space> za
@@ -236,5 +236,8 @@ function! ExecuteMacroOverVisualRange()
     echo "@".getcmdline()
     execute ":'<,'>normal @".nr2char(getchar())
 endfunction
+
+" mark position before search
+nnoremap / ms/
 
 "}}}
