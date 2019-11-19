@@ -1,5 +1,12 @@
 " Author: Upi Tamminen <desaster@>
 
+" use this augroup everywhere
+" https://gist.github.com/romainl/6e4c15dfc4885cb4bd64688a71aa7063
+augroup mygroup
+    autocmd!
+augroup END
+
+" keep plugin installs and setup in separate file(s)
 execute 'source ' . fnameescape(stdpath('config') . '/plugins.vim')
 
 " https://jdhao.github.io/2019/01/17/nvim_qt_settings_on_windows/
@@ -44,7 +51,7 @@ set belloff=all
 
 set mouse=a " mouse should work even in terminal
 
-set updatetime=4000
+set updatetime=300
 
 let mapleader = "\\"
 let maplocalleader = "\\"
@@ -53,8 +60,8 @@ map <Space> <Leader>
 
 " Show the cursorline for the focused window
 set cursorline
-autocmd WinEnter * setlocal cursorline
-autocmd WinLeave * setlocal nocursorline
+autocmd mygroup WinEnter * setlocal cursorline
+autocmd mygroup WinLeave * setlocal nocursorline
 
 " input auto-formatting
 set formatoptions=
@@ -66,6 +73,9 @@ set formatoptions+=j " no // comment when joining commented lines
 set numberwidth=3 " 3 is okay for relativenumber
 set number " also shows current line number
 set relativenumber
+
+" don't display mode in command line, it's already shown in status
+set noshowmode
 
 "}}}
 
@@ -177,7 +187,7 @@ noremap L g_
 "}}}
 
 " Folding {{{
-set foldlevelstart=0 " start with folds closed
+set foldlevelstart=99 " start with folds open
 set foldmethod=syntax
 
 " open/close folds with space
@@ -239,5 +249,11 @@ endfunction
 
 " mark position before search
 nnoremap / ms/
+
+" open nvim config
+"
+    " edit ~/.config/nvim/init.vim
+
+map <leader>ev :execute ':e ' . stdpath('config') . '/init.vim'<cr>
 
 "}}}

@@ -1,0 +1,31 @@
+===============================================================================
+1. my vimrc cheatsheet
+
+
+   - <TAB>              trigger completion
+   - <CR>		accept completion
+   - gd/gy/gi/gr     goto type/definition/implementation/references
+   - K		show definition of current word
+   - C-o             return from visiting definition
+   - L-g		grep given word
+   - L-j		grep current word
+   - ;		buffers
+   - <C-p>		find files
+   - ]g/[g		next/prev diagnostic (diagnostic being error or warning in code)
+   - rn		rename (refactor)
+   - L-a/L-ac/L-qf	fix action for current line / selected / quickfix
+   - if/af		text object of function
+
+===============================================================================
+2. TODO
+
+   - remove path from tabline
+   - figure out function definition preview
+   - terminal should remove line numbers on opening
+   - how to scroll in terminal?
+   - plugins.vim has some coc bindings as <space>..., but these conflict with
+     leader
+   - completion is sometimes case sensitive, e.g. foo.namef... should return NameFI
+   - how to do typescript folding?
+   - backticks sometimes fuck up {} matching?
+   - convert this readme to helpfile

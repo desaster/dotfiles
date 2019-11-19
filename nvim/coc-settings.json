@@ -1,4 +1,7 @@
 {
+  // Prevent vim from selecting the first item on completion start
   "suggest.noselect": true,
+  // Automatically update the value of `b:coc_current_function` on
+  // `CursorHold` event,  default: `false`
   "coc.preferences.currentFunctionSymbolAutoUpdate": true
 }
