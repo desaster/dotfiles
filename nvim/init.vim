@@ -256,4 +256,6 @@ nnoremap / ms/
 
 map <leader>ev :execute ':e ' . stdpath('config') . '/init.vim'<cr>
 
+map <F1> :<C-U>execute ':split ' . stdpath('config') . '/README'<CR>
+
 "}}}
