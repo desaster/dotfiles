@@ -3,5 +3,8 @@
   "suggest.noselect": true,
   // Automatically update the value of `b:coc_current_function` on
   // `CursorHold` event,  default: `false`
-  "coc.preferences.currentFunctionSymbolAutoUpdate": true
+  "coc.preferences.currentFunctionSymbolAutoUpdate": true,
+  "diagnostic.errorSign": "•",
+  "diagnostic.warningSign": "◦",
+  "diagnostic.infoSign": "‣"
 }

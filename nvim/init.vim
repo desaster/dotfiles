@@ -117,20 +117,24 @@ nmap <leader>bl :ls<CR>
 " new empty buffer
 nmap <leader>bn :enew<CR>
 
+" switch to alternate buffer
+nmap <leader># :b#<CR>
+
 " close the current buffer without closing split NOTE: this works sometimes
 nmap <silent> <leader>d :bp\|bd #<CR>
 
 " move to buffer n from left
-nmap <leader>1 :brewind<CR>:bnext 0<CR>
-nmap <leader>2 :brewind<CR>:bnext 1<CR>
-nmap <leader>3 :brewind<CR>:bnext 2<CR>
-nmap <leader>4 :brewind<CR>:bnext 3<CR>
-nmap <leader>5 :brewind<CR>:bnext 4<CR>
-nmap <leader>6 :brewind<CR>:bnext 5<CR>
-nmap <leader>7 :brewind<CR>:bnext 6<CR>
-nmap <leader>8 :brewind<CR>:bnext 7<CR>
-nmap <leader>9 :brewind<CR>:bnext 8<CR>
-nmap <leader>0 :brewind<CR>:bnext 9<CR>
+" (commented out, see lightline mappings in plugins.vim)
+"nmap <leader>1 :brewind<CR>:bnext 0<CR>
+"nmap <leader>2 :brewind<CR>:bnext 1<CR>
+"nmap <leader>3 :brewind<CR>:bnext 2<CR>
+"nmap <leader>4 :brewind<CR>:bnext 3<CR>
+"nmap <leader>5 :brewind<CR>:bnext 4<CR>
+"nmap <leader>6 :brewind<CR>:bnext 5<CR>
+"nmap <leader>7 :brewind<CR>:bnext 6<CR>
+"nmap <leader>8 :brewind<CR>:bnext 7<CR>
+"nmap <leader>9 :brewind<CR>:bnext 8<CR>
+"nmap <leader>0 :brewind<CR>:bnext 9<CR>
 
 " move between windows
 tnoremap <A-h> <C-\><C-N><C-w>h

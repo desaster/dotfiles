@@ -44,10 +44,11 @@ endfunction
 inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
 
 " Use `[g` and `]g` to navigate diagnostics
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
+nmap <silent> <S-F8> <Plug>(coc-diagnostic-prev)
+nmap <silent> <F8> <Plug>(coc-diagnostic-next)
 
 " Remap keys for gotos
+nmap <silent> <F12> <Plug>(coc-definition)
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
@@ -70,6 +71,7 @@ autocmd mygroup CursorHold * silent call CocActionAsync('highlight')
 
 " Rename (refactor) current word
 nmap <leader>rn <Plug>(coc-rename)
+nmap <F2> <Plug>(coc-rename)
 
 " Remap for format selected region. this requires coc-prettier
 " TODO: it seems to touch code around the visual selection too, so maybe scrap it

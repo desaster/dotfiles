@@ -189,6 +189,12 @@ nmap <leader>bl :ls<CR>
 
 " new empty buffer
 nmap <leader>bn :enew<CR>
+"
+" switch to alternate buffer
+nmap <leader># :b#<CR>
+"
+" close the current buffer without closing split NOTE: this works sometimes
+nmap <silent> <leader>d :bp\|bd #<CR>
 
 " move to buffer n from left
 nmap <leader>1 :brewind<CR>:bnext 0<CR>
@@ -201,6 +207,20 @@ nmap <leader>7 :brewind<CR>:bnext 6<CR>
 nmap <leader>8 :brewind<CR>:bnext 7<CR>
 nmap <leader>9 :brewind<CR>:bnext 8<CR>
 nmap <leader>0 :brewind<CR>:bnext 9<CR>
+
+" move between windows
+tnoremap <A-h> <C-\><C-N><C-w>h
+tnoremap <A-j> <C-\><C-N><C-w>j
+tnoremap <A-k> <C-\><C-N><C-w>k
+tnoremap <A-l> <C-\><C-N><C-w>l
+inoremap <A-h> <C-\><C-N><C-w>h
+inoremap <A-j> <C-\><C-N><C-w>j
+inoremap <A-k> <C-\><C-N><C-w>k
+inoremap <A-l> <C-\><C-N><C-w>l
+nnoremap <A-h> <C-w>h
+nnoremap <A-j> <C-w>j
+nnoremap <A-k> <C-w>k
+nnoremap <A-l> <C-w>l
 
 " http://stackoverflow.com/questions/12328277/vim-remote-silent-always-opens-no-name-buffer-for-first-file
 " https://paste2.org/bcjaa1Y0

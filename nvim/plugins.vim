@@ -11,6 +11,9 @@ Plug 'tpope/vim-sensible'
 " comment with gc
 Plug 'tpope/vim-commentary'
 
+" scrolloff as a fraction of window height
+Plug 'drzel/vim-scrolloff-fraction'
+
 " retro color scheme
 Plug 'morhetz/gruvbox'
 
@@ -70,10 +73,26 @@ let g:lightline = {
       \ },
       \ }
 
-let g:lightline.tabline          = {'left': [['buffers']], 'right': [['close']]}
+let g:lightline.tabline          = {'left': [['buffers']], 'right': []}
 let g:lightline.component_expand = {'buffers': 'lightline#bufferline#buffers'}
 let g:lightline.component_type   = {'buffers': 'tabsel'}
+let g:lightline#bufferline#shorten_path = 1 " don't show full path in bufferline
+let g:lightline#bufferline#filename_modifier = ':t' " only show filename in bufferline
+let g:lightline#bufferline#unnamed = '[No Name]' " default is *
+let g:lightline#bufferline#show_number = 2 " show buffer number for quick switching
 set showtabline=2
+
+" use ordinal numbers in bufferline
+nmap <leader>1 <Plug>lightline#bufferline#go(1)
+nmap <leader>2 <Plug>lightline#bufferline#go(2)
+nmap <leader>3 <Plug>lightline#bufferline#go(3)
+nmap <leader>4 <Plug>lightline#bufferline#go(4)
+nmap <leader>5 <Plug>lightline#bufferline#go(5)
+nmap <leader>6 <Plug>lightline#bufferline#go(6)
+nmap <leader>7 <Plug>lightline#bufferline#go(7)
+nmap <leader>8 <Plug>lightline#bufferline#go(8)
+nmap <leader>9 <Plug>lightline#bufferline#go(9)
+nmap <leader>0 <Plug>lightline#bufferline#go(10)
 
 "}}}
 
