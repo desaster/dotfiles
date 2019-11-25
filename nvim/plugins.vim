@@ -14,6 +14,9 @@ Plug 'tpope/vim-commentary'
 " scrolloff as a fraction of window height
 Plug 'drzel/vim-scrolloff-fraction'
 
+" ability to close all hidden buffers, etc
+Plug 'Asheq/close-buffers.vim'
+
 " retro color scheme
 Plug 'morhetz/gruvbox'
 
@@ -48,6 +51,12 @@ Plug 'HerringtonDarkholme/yats'
 Plug 'farmergreg/vim-lastplace'
 
 call plug#end()
+
+"}}}
+
+" close-buffers {{{
+
+nnoremap <silent> <C-q> :Bdelete menu<CR>
 
 "}}}
 
