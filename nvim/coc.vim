@@ -135,3 +135,15 @@ command! -nargs=0 OR :call CocAction('runCommand', 'editor.action.organizeImport
 "nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list
 "nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+
+" for some reason, the undercurl stuff doesn't get set in terminal without
+" delaying it
+function! s:setupCocColors()
+    hi! clear SignColumn
+    hi! CocErrorHighlight cterm=undercurl gui=undercurl guisp=#fb4934
+    hi! CocInfoHighlight cterm=undercurl gui=undercurl guisp=#fabd2f
+    hi! CocWarningHighlight cterm=undercurl gui=undercurl guisp=#fabd2f
+    hi! CocHintHighlight cterm=undercurl gui=undercurl guisp=#fabd2f
+endfunction
+
+autocmd mygroup VimEnter * call s:setupCocColors()

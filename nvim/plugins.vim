@@ -1,12 +1,15 @@
 " Plugins {{{
 
-let g:myvimrc_enable_coc=0
-let g:myvimrc_enable_vim_lsp=1
+let g:myvimrc_enable_coc=1
+let g:myvimrc_enable_vim_lsp=0
 
 call plug#begin(stdpath('data') . '/plugged')
 
 " some sensible defaults
 Plug 'tpope/vim-sensible'
+
+" comment with gc
+Plug 'tpope/vim-commentary'
 
 " retro color scheme
 Plug 'morhetz/gruvbox'
