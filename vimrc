@@ -45,8 +45,6 @@ Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 
 Plug 'qpkorr/vim-bufkill'
 
-Plug 'udalov/kotlin-vim'
-
 Plug 'ARM9/arm-syntax-vim'
 
 Plug 'tomtom/tcomment_vim'
