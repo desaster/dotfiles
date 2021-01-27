@@ -61,6 +61,12 @@ Plug 'sirtaj/vim-openscad', { 'for': 'openscad' }
 
 Plug 'leafgarland/typescript-vim'
 
+Plug 'larsks/vim-64tass'
+
+Plug 'editorconfig/editorconfig-vim'
+
+Plug 'ekalinin/Dockerfile.vim'
+
 call plug#end()
 
 for f in split(glob('~/.vim/vimrc.d/*.vim'), '\n')
@@ -298,6 +304,14 @@ endif
 if has("multi_byte") && &encoding == "utf-8"
     set fillchars=vert:│,fold:\ 
 endif
+
+function! SynStack()
+    if !exists("*synstack")
+        return
+    endif
+    echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+endfunc
+
 "}}}
 
 " GUI settings {{{
