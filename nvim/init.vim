@@ -222,6 +222,7 @@ noremap L g_
 "}}}
 
 " Folding {{{
+
 set foldlevelstart=99 " start with folds open
 set foldmethod=syntax
 
@@ -270,7 +271,7 @@ cnoremap <c-e> <end>
 inoremap <MiddleMouse> <C-O>:set paste<cr><MiddleMouse><C-O>:set nopaste<CR>
 
 " save via sudo
-if !has("win32")
+if !has("win32") && !exists('g:vscode')
     cmap w!! w !sudo tee > /dev/null %
 endif
 
