@@ -232,7 +232,10 @@ nnoremap <A-l> <C-w>l
 autocmd BufAdd * :call <SID>DeleteBufferIfEmpty()
 function s:DeleteBufferIfEmpty()
     if bufname('%') == ''
-        bwipe
+        try
+            bwipe
+        catch /E89:/
+        endtry
         " This will trigger filetype detection, mainly to trigger syntax highlighting
         doautocmd BufRead
     endif
