@@ -28,7 +28,7 @@ Plug 'mengelbrecht/lightline-bufferline'
 
 "Plug 'kien/ctrlp.vim'
 " plugin that works with lists, can implement some ctrlp functionality
-Plug 'Shougo/denite.nvim', { 'commit': '4bf092244dac9c8d21e22039979fa3afe240e5c5' }
+Plug 'Shougo/denite.nvim'
 
 " provide two options for lsp, coc and vim-lsp
 if g:myvimrc_enable_coc

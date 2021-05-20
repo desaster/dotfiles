@@ -1,19 +1,20 @@
 ===============================================================================
 1. my vimrc cheatsheet
 
-    - <TAB>              trigger completion
+    - <L-#>		switch to alternate buffer
+    - ;			browse buffers
+    - <TAB>		trigger completion
     - <CR>		accept completion
-    - gd/gy/gi/gr     goto type/definition/implementation/references
-    - K		show definition of current word
-    - C-o             return from visiting definition
-    - L-g		grep given word
-    - L-j		grep current word
-    - ;		buffers
-    - <C-p>		find files
+    - gd/gy/gi/gr	goto type/definition/implementation/references
+    - K			show definition of current word
     - ]g/[g		next/prev diagnostic (diagnostic being error or warning in code)
     - rn		rename (refactor)
-    - L-a/L-ac/L-qf	fix action for current line / selected / quickfix
-    - if/af		text object of function
+    - <L-a/L-ac/L-qf>	fix action for current line / selected / quickfix
+    - if/af		text object of function (e.g. cif)
+    - <C-o>		return from visiting definition
+    - <L-g>		grep given word
+    - <L-j>		grep current word
+    - <C-p>		fuzzy find files (<C-o> switches to normal mode)
 
 ===============================================================================
 2. TODO
