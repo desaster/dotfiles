@@ -18,7 +18,8 @@ Plug 'drzel/vim-scrolloff-fraction'
 Plug 'Asheq/close-buffers.vim'
 
 " retro color scheme
-Plug 'morhetz/gruvbox'
+"Plug 'morhetz/gruvbox'
+Plug 'sainnhe/gruvbox-material'
 
 "Plug 'majutsushi/tagbar'
 
@@ -71,7 +72,7 @@ endfunction
 " TODO: show errors/warnings of cocstatus a more outstanding way
 
 let g:lightline = {
-      \ 'colorscheme': 'gruvbox',
+      \ 'colorscheme': 'gruvbox_material',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'cocstatus', 'currentfunction', 'readonly', 'filename', 'modified' ] ]

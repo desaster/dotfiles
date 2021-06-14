@@ -187,7 +187,10 @@ set termguicolors
 
 let g:gruvbox_italic=0
 
-colorscheme gruvbox
+let g:gruvbox_material_background = 'hard'
+
+colorscheme gruvbox-material
+" cp ~/.local/share/nvim/plugged/gruvbox-material/autoload/lightline/colorscheme/gruvbox_material.vim ~/.local/share/nvim/plugged/lightline.vim/autoload/lightline/colorscheme/ 
 
 set fillchars=vert:│,fold:\
 set list
