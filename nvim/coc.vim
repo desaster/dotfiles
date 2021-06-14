@@ -6,6 +6,7 @@ let g:coc_global_extensions = [
   \ 'coc-prettier', 
   \ 'coc-json', 
   \ 'coc-highlight', 
+  \ 'coc-explorer',
   \ ]
 
 " don't give |ins-completion-menu| messages.
@@ -137,6 +138,9 @@ command! -nargs=0 OR :call CocAction('runCommand', 'editor.action.organizeImport
 "nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list
 "nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+
+" file explorer
+nnoremap <F7> :CocCommand explorer<CR>
 
 " for some reason, the undercurl stuff doesn't get set in terminal without
 " delaying it

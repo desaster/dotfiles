@@ -1,6 +1,7 @@
 ===============================================================================
 1. my vimrc cheatsheet
 
+    - <F7>              file explorer
     - <L-#>		switch to alternate buffer
     - ;			browse buffers
     - <TAB>		trigger completion
@@ -28,5 +29,5 @@
     - completion is sometimes case sensitive, e.g. foo.namef... should return NameFI
     - how to do typescript folding?
     - backticks sometimes fuck up {} matching?
-    - convert this readme to helpfile
+    - convert this cheatsheet to a helpfile, or maybe a popup
     - tab only works if there's a space to the left
