@@ -50,6 +50,15 @@ if [ "$PS1" ]; then
 
     bindkey '' backward-kill-word
     bindkey '' backward-kill-word
+
+    # Use bash-like word definitions for navigation and operations
+    autoload -Uz select-word-style
+    select-word-style bash
+
+    # Use C-w to kill back to the previous space
+    zle -N backward-kill-space-word backward-kill-word-match
+    zstyle :zle:backward-kill-space-word word-style space
+    bindkey '^W' backward-kill-space-word
 fi
 
 export WORDCHARS='*?_-.[]~=/&;&%^(){}<>' # this excludes /
