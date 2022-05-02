@@ -12,6 +12,13 @@ function venv3 {
     virtualenv --python=/usr/bin/python3.4 "$1"
 }
 
+# Change the current directory for a tmux session, which determines
+# the starting dir for new windows/panes:
+function tmux-cwd {
+    #tmux command-prompt -I $PWD -P "New session dir:" "attach -c %1"
+    tmux command-prompt "attach -c %1 $PWD"
+}
+
 # If running interactively, then:
 if [ "$PS1" ]; then
     PS1="\u@\h \w \$ "
