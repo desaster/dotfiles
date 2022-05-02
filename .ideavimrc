@@ -1,0 +1,14 @@
+# just the absolutely necessary stuff from ~/.vimrc
+
+set visualbell
+set noerrorbells
+
+set relativenumber
+set number
+
+set ignorecase
+set smartcase
+
+set showcmd
+
+set selection=exclusive
