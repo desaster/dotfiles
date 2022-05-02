@@ -1,0 +1,38 @@
+#!/bin/sh
+
+# create a new tmux session, or switch to if already exists
+# no arguments: create session called "main"
+
+session="main"
+if [ -n "$1" ]
+then
+    session="$1"
+fi
+
+if [ "$session" == "l" ] || [ "$session" == "ls" ]
+then
+    tmux ls
+    exit 0
+fi
+
+# add -d to new and attach if others should detach
+
+tmux has-session -t $session 2>/dev/null
+if [ $? != 0 ]; then
+    if [ -n "$TMUX" ]
+    then
+        tmux new -s $session -d
+        tmux switch-client -t $session
+    else
+        tmux new -s $session
+    fi
+else
+    if [ -n "$TMUX" ]
+    then
+        tmux switch-client -t $session
+    else
+        tmux attach-session -t $session
+    fi
+fi
+
+# vim: set ft=sh:
