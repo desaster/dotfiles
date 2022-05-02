@@ -58,6 +58,8 @@ if [ "$PS1" ]; then
     bindkey '' backward-kill-word
     bindkey '' backward-kill-word
 
+    bindkey "^R" history-incremental-search-backward
+
     # Use bash-like word definitions for navigation and operations
     autoload -Uz select-word-style
     select-word-style bash
@@ -66,6 +68,11 @@ if [ "$PS1" ]; then
     zle -N backward-kill-space-word backward-kill-word-match
     zstyle :zle:backward-kill-space-word word-style space
     bindkey '^W' backward-kill-space-word
+
+    # append completions to fpath
+    fpath=(${HOME}/.zsh/completions $fpath)
+    # initialise completions with ZSH's compinit
+    autoload -Uz compinit && compinit
 fi
 
 export WORDCHARS='*?_-.[]~=/&;&%^(){}<>' # this excludes /
@@ -74,7 +81,5 @@ export VISUAL="vim"
 export EDITOR="vim"
 
 export PATH="$PATH:$HOME/bin"
-
-alias tm="tmux attach-session -d -t main || tmux new -s main"
 
 # vim: set sw=4 sts=4:
