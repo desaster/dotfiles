@@ -16,7 +16,7 @@ cmp.setup({
         --{ name = "neorg" },
     },
     mapping = {
-        -- TODO: ESC seems to work too, why do we want this?
+        -- TODO: ESC seems to work too, but only this one works reliably
         ['<C-e>'] = cmp.mapping.close(),
 
         -- TODO: maybe C-p C-n with fallback?
@@ -58,10 +58,10 @@ cmp.setup({
     formatting = {
         format = function(entry, item)
             item.menu = ({
-                nvim_lsp = "[L]",
-                path = "[P]",
-                luasnip = "[S]",
-                buffer = "[B]",
+                nvim_lsp = "[LSP]",
+                path = "[Path]",
+                luasnip = "[Snip]",
+                buffer = "[Buf]",
             })[entry.source.name]
             return item
         end,

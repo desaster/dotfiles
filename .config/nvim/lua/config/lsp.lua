@@ -1,7 +1,14 @@
 local lspconfig = require('lspconfig')
 
 -- null-ls will magically enable diagnostics messages from eslint
-require('null-ls').setup {}
+-- (except when it doesn't)
+--require("null-ls").setup({
+--    sources = {
+--        require("null-ls").builtins.formatting.stylua,
+--        require("null-ls").builtins.diagnostics.eslint,
+--        require("null-ls").builtins.completion.spell,
+--    },
+--})
 
 -- progress
 require"fidget".setup{}
@@ -67,8 +74,8 @@ local function on_attach(client, bufnr)
 
     -- buf_set_keymap('v', '<leader>ca', '<cmd>lua vim.lsp.buf.range_code_action()<CR>', opts)
 
-    -- highlight current diagnostics (e.g. an error)
-    buf_set_keymap('n', '<leader>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
+    -- popup current diagnostics (e.g. an error)
+    buf_set_keymap('n', '<leader>e', '<cmd>lua vim.diagnostic.open_float(nil, { focus=false, scope="cursor" })<CR>', opts)
 
     -- jump to next diagnostic (e.g. an error)
     buf_set_keymap('n', '<F8>', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
@@ -80,7 +87,9 @@ local function on_attach(client, bufnr)
 end
 
 require('nvim-lsp-installer').setup {
-    automatic_installation = true -- TODO: this doesn't work
+    -- stuff should appear in ~/.local/share/nvim/lsp_servers/
+    -- status can be seen in :LspInstallInfo
+    automatic_installation = true
 }
 
 lspconfig.sumneko_lua.setup {
@@ -102,13 +111,32 @@ lspconfig.tsserver.setup {
     capabilities = capabilities
 }
 
+lspconfig.eslint.setup {
+    capabilities = capabilities
+}
+
+-- https://github.com/neovim/nvim-lspconfig/wiki/UI-customization#customizing-how-diagnostics-are-displayed
 vim.diagnostic.config({
-  virtual_text = false, -- disable virtual text, it often doesn't fit anyway
-  float = {
-    --source = "always", -- TODO: could be nice with shorter source strings
-  },
+    -- disable virtual text, it often doesn't fit anyway
+    virtual_text = false,
+
+    -- default is false, update diagnostics in insert mode
+    update_in_insert = true,
+
+    float = {
+        -- nice to know if message is from eslint or tsserver
+        source = "always"
+    },
 })
 
 -- Show line diagnostics automatically in hover window
-vim.o.updatetime = 250
-vim.cmd [[autocmd CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})]]
+-- https://github.com/neovim/nvim-lspconfig/wiki/UI-customization#show-line-diagnostics-automatically-in-hover-window
+--vim.o.updatetime = 500
+--vim.cmd [[autocmd! CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, { focus=false, scope="cursor" })]]
+
+-- TODO
+-- https://www.reddit.com/r/neovim/comments/nrz9hp/can_i_close_all_floating_windows_without_closing/h0lg5m1/
+-- often the floating diagnostics or completion window just gets in the way,
+-- and is really hard to close due to bugs - maybe we need some shortcut to
+-- force close?
+-- or maybe we'll add some mapping and learn to use it
