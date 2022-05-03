@@ -61,6 +61,8 @@ use({
         'williamboman/nvim-lsp-installer',
         -- diagnostics messages from eslint
         'jose-elias-alvarez/null-ls.nvim',
+        -- progress thingie
+        'j-hui/fidget.nvim';
     },
     config = get_config('lsp')
 })

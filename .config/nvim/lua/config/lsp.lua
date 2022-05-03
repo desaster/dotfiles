@@ -3,6 +3,9 @@ local lspconfig = require('lspconfig')
 -- null-ls will magically enable diagnostics messages from eslint
 require('null-ls').setup {}
 
+-- progress
+require"fidget".setup{}
+
 -- nvim-cmp supports additional completion capabilities
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 
