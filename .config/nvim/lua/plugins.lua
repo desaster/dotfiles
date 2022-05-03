@@ -67,6 +67,9 @@ use({
     config = get_config('lsp')
 })
 
+-- java, doesn't use lspconfig, see ftplugin/java.lua
+use 'mfussenegger/nvim-jdtls'
+
 -- colorize hex codes
 use({
     'norcalli/nvim-colorizer.lua',
