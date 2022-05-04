@@ -16,8 +16,8 @@ cmp.setup({
         --{ name = "neorg" },
     },
     mapping = {
-        -- TODO: ESC seems to work too, but only this one works reliably
         ['<C-e>'] = cmp.mapping.close(),
+        ['<ESC>'] = cmp.mapping.abort(), -- still annoying
 
         -- TODO: maybe C-p C-n with fallback?
         ['<Up>'] = cmp.mapping(cmp.mapping.scroll_docs(-3), { 'i', 'c' }),

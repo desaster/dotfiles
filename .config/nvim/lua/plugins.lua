@@ -29,6 +29,20 @@ use({
     event = 'VimEnter'
 })
 
+-- Better syntax highlighting, or something
+use({
+    'nvim-treesitter/nvim-treesitter',
+    run = ':TSUpdate'
+})
+
+-- Comment out stuff with gc, gcc etc https://github.com/numToStr/Comment.nvim#-usage
+use {
+    'numToStr/Comment.nvim',
+    config = function()
+        require('Comment').setup()
+    end
+}
+
 -- fuzzy finder (see mappings.lua)
 use {
     'nvim-telescope/telescope.nvim',
@@ -38,6 +52,7 @@ use {
 }
 
 -- delete buffers without messing up window layout (see mappings.lua)
+-- TODO: sometimes just throws a bunch of errors
 use 'famiu/bufdelete.nvim'
 
 -- sigh, completion
@@ -59,8 +74,6 @@ use({
     requires = {
         -- easy way to install lsp servers to data/nvim/lsp_servers/
         'williamboman/nvim-lsp-installer',
-        -- diagnostics messages from eslint
-        'jose-elias-alvarez/null-ls.nvim',
         -- progress thingie
         'j-hui/fidget.nvim';
     },
@@ -75,6 +88,6 @@ use({
     'norcalli/nvim-colorizer.lua',
     event = 'BufReadPre',
     config = get_config('colorizer'),
- })
+})
 
 -- vim: set sw=4 et:

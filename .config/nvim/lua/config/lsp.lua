@@ -1,15 +1,5 @@
 local lspconfig = require('lspconfig')
 
--- null-ls will magically enable diagnostics messages from eslint
--- (except when it doesn't)
---require("null-ls").setup({
---    sources = {
---        require("null-ls").builtins.formatting.stylua,
---        require("null-ls").builtins.diagnostics.eslint,
---        require("null-ls").builtins.completion.spell,
---    },
---})
-
 -- progress
 require"fidget".setup{}
 
@@ -55,7 +45,7 @@ local function on_attach(client, bufnr)
     buf_set_keymap('n', 'gr', '<cmd>Telescope lsp_references<CR>', opts)
 
     -- code actions (e.g. add import)
-    buf_set_keymap('n', '<leader>ca', '<cmd>Telescope lsp_code_actions<CR>', opts)
+    buf_set_keymap('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
     --buf_set_keymap('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
 
     -- Goto the definition of the type of the word under the cursor, if
@@ -82,6 +72,7 @@ local function on_attach(client, bufnr)
     buf_set_keymap('n', '<S-F8>', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
 
     -- disable formatting in favour of eslint formatting
+    -- TODO: this setup needs work
     client.resolved_capabilities.document_formatting = false
     client.resolved_capabilities.document_range_formatting = false
 end
@@ -89,7 +80,11 @@ end
 require('nvim-lsp-installer').setup {
     -- stuff should appear in ~/.local/share/nvim/lsp_servers/
     -- status can be seen in :LspInstallInfo
-    automatic_installation = true
+    automatic_installation = {
+        exclude = {
+            'ccls' -- ccls is difficult to build, but comes with debian
+        }
+    }
 }
 
 lspconfig.sumneko_lua.setup {
@@ -112,6 +107,12 @@ lspconfig.tsserver.setup {
 }
 
 lspconfig.eslint.setup {
+    capabilities = capabilities
+}
+
+lspconfig.ccls.setup {
+    filetypes = { "c", "cpp" },
+    on_attach = on_attach,
     capabilities = capabilities
 }
 
