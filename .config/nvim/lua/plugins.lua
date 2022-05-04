@@ -32,6 +32,7 @@ use({
 -- Better syntax highlighting, or something
 use({
     'nvim-treesitter/nvim-treesitter',
+    config = get_config('treesitter'),
     run = ':TSUpdate'
 })
 
