@@ -1,8 +1,8 @@
 local jdtls_jar = vim.env.JDTLS_JAR
 local jdtls_config = vim.env.JDTLS_CONFIG
 
--- export JDTLS_CONFIG=$HOME/neovim/jdtls/config_linux/
--- export JDTLS_JAR=$HOME/neovim/jdtls/plugins/org.eclipse.equinox.launcher_1.6.400.v20210924-0641.jar
+-- export JDTLS_CONFIG="$HOME/neovim/jdtls/config_linux/"
+-- export JDTLS_JAR="$HOME/neovim/jdtls/plugins/org.eclipse.equinox.launcher_1.6.400.v20210924-0641.jar"
 
 -- ensure we were given path to the jdtls JAR file
 if (vim.fn.empty(vim.env.JDTLS_JAR) > 0 or
@@ -91,6 +91,9 @@ local config = {
         require("jdtls.setup").add_commands()
         --require("jdtls").setup_dap({ hotcodereplace = "auto" })
         --require("hb/lsp/keymap").setup_lsp_keymaps(client, bufnr)
+
+        require('mappings').setup_lsp_keymaps(client, bufnr)
+        -- TODO: add extra keybindings from https://github.com/mfussenegger/nvim-jdtls#usage
     end
 }
 
