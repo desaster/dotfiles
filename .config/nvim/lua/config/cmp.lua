@@ -16,14 +16,18 @@ cmp.setup({
         --{ name = "neorg" },
     },
     mapping = {
+        -- completion menu randomly stays on screen, this will let us close it
         ['<C-e>'] = cmp.mapping.close(),
-        ['<ESC>'] = cmp.mapping.abort(), -- still annoying
+
+        -- this is annoying like this, but maybe it could be better if it also
+        -- exited insert mode
+        --['<ESC>'] = cmp.mapping.abort(),
 
         -- TODO: maybe C-p C-n with fallback?
         ['<Up>'] = cmp.mapping(cmp.mapping.scroll_docs(-3), { 'i', 'c' }),
         ['<Down>'] = cmp.mapping(cmp.mapping.scroll_docs(3), { 'i', 'c' }),
 
-        -- TODO: what does this do?
+        -- open completion menu on demand
         ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
 
         -- TODO: what is this?
