@@ -87,6 +87,7 @@ M.setup_keymaps = function()
 
     -- list buffers
     map('n', ';', ':Telescope buffers<CR>')
+    map('n', '<leader><space>', ':Telescope buffers<CR>') -- 2x-space, could we live with this?
 end
 
 -- Setup LSP specific keys for a buffer
@@ -131,7 +132,8 @@ M.setup_lsp_keymaps = function(client, bufnr)
 
     -- code actions (e.g. add import)
     buf_set_keymap('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-    --buf_set_keymap('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+    buf_set_keymap('n', '<leader>a', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+    buf_set_keymap('n', '<M-CR>', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts) -- IntelliJ IDEA style Alt-Enter
 
     -- Goto the definition of the type of the word under the cursor, if
     -- there's only one, otherwise show all options in Telescope
@@ -153,19 +155,18 @@ M.setup_lsp_keymaps = function(client, bufnr)
     buf_set_keymap('n', '<leader>e', '<cmd>lua vim.diagnostic.open_float(nil, { focus=false, scope="cursor" })<CR>', opts)
 
     -- jump to next diagnostic (e.g. an error)
-    buf_set_keymap('n', '<F8>', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
-    buf_set_keymap('n', '<S-F8>', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
-
+    buf_set_keymap('n', '<F8>', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
+    buf_set_keymap('n', '<S-F8>', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
 
     -- disable formatting in favour of eslint formatting
     -- TODO: this setup needs work
     --client.resolved_capabilities.document_formatting = false
     --client.resolved_capabilities.document_range_formatting = false
     if client.resolved_capabilities.document_formatting then
-        buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+        buf_set_keymap('n', '<space>=', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
     end
     if client.resolved_capabilities.document_range_formatting then
-        buf_set_keymap("v", "<space>f", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
+        buf_set_keymap("v", "<space>=", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
     end
 end
 
