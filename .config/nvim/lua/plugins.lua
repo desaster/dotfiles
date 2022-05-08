@@ -44,6 +44,12 @@ use {
     end
 }
 
+-- show indentation guides on blank lines
+use {
+    'lukas-reineke/indent-blankline.nvim',
+    config = get_config('indent')
+}
+
 -- fuzzy finder (see mappings.lua)
 use {
     'nvim-telescope/telescope.nvim',
