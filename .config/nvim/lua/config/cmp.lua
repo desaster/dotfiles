@@ -1,5 +1,12 @@
-local cmp = require('cmp')
-local luasnip = require('luasnip')
+local cmp_ok, cmp = pcall(require, 'cmp')
+if not cmp_ok then
+    return
+end
+
+local luasnip_ok, luasnip = pcall(require, 'luasnip')
+if not luasnip_ok then
+    return
+end
 
 -- Set completeopt to have a better completion experience
 -- TODO: explain why

@@ -1,6 +1,7 @@
 --
 -- Configuring neovim is hell. This is yet another attempt.
 --
+
 -- Plan:
 -- * Add one thing at a time
 -- * Do not add another thing until the one thing works in an acceptable manner

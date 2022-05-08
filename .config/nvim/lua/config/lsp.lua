@@ -1,7 +1,19 @@
-local lspconfig = require('lspconfig')
+local lspconfig_ok, lspconfig = pcall(require, 'lspconfig')
+if not lspconfig_ok then
+    return
+end
 
--- progress
-require"fidget".setup{}
+local lspinstaller_ok, lspinstaller = pcall(require, 'nvim-lsp-installer')
+if not lspinstaller_ok then
+    return
+end
+
+local fidget_ok, fidget = pcall(require, 'fidget')
+if fidget_ok then
+    -- progress
+    fidget.setup{}
+end
+
 
 -- nvim-cmp supports additional completion capabilities
 local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -11,7 +23,7 @@ local function on_attach(client, bufnr)
     require('mappings').setup_lsp_keymaps(client, bufnr)
 end
 
-require('nvim-lsp-installer').setup {
+lspinstaller.setup {
     -- stuff should appear in ~/.local/share/nvim/lsp_servers/
     -- status can be seen in :LspInstallInfo
     automatic_installation = {

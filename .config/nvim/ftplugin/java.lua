@@ -1,6 +1,11 @@
 local jdtls_jar = vim.env.JDTLS_JAR
 local jdtls_config = vim.env.JDTLS_CONFIG
 
+local jdtls_ok, jdtls = pcall(require, 'jdtls')
+if not jdtls_ok then
+    return
+end
+
 -- export JDTLS_CONFIG="$HOME/neovim/jdtls/config_linux/"
 -- export JDTLS_JAR="$HOME/neovim/jdtls/plugins/org.eclipse.equinox.launcher_1.6.400.v20210924-0641.jar"
 
@@ -62,7 +67,7 @@ local config = {
 
     -- This is the default if not provided, you can remove it. Or adjust as needed.
     -- One dedicated LSP server & client will be started per unique root_dir
-    root_dir = require('jdtls.setup').find_root({'.git', 'mvnw', 'gradlew'}),
+    root_dir = jdtls.setup.find_root({'.git', 'mvnw', 'gradlew'}),
 
     -- Here you can configure eclipse.jdt.ls specific settings
     -- See https://github.com/eclipse/eclipse.jdt.ls/wiki/Running-the-JAVA-LS-server-from-the-command-line#initialize-request
@@ -88,9 +93,8 @@ local config = {
         --client.resolved_capabilities.document_formatting = false
         --client.resolved_capabilities.document_range_formatting = false
 
-        require("jdtls.setup").add_commands()
-        --require("jdtls").setup_dap({ hotcodereplace = "auto" })
-        --require("hb/lsp/keymap").setup_lsp_keymaps(client, bufnr)
+        jdtls.setup.add_commands()
+        --jdtls.setup.setup_dap({ hotcodereplace = "auto" })
 
         require('mappings').setup_lsp_keymaps(client, bufnr)
         -- TODO: add extra keybindings from https://github.com/mfussenegger/nvim-jdtls#usage
@@ -99,4 +103,4 @@ local config = {
 
 -- This starts a new client & server,
 -- or attaches to an existing client & server depending on the `root_dir`.
-require('jdtls').start_or_attach(config)
+jdtls.start_or_attach(config)

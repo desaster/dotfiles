@@ -1,6 +1,13 @@
 vim.o.termguicolors = true
 vim.g.gruvbox_material_background = 'hard'
-vim.cmd('colorscheme gruvbox-material')
+
+local colorscheme = 'gruvbox-material'
+
+-- abort if colorscheme is not (yet) installed
+local ok, result = pcall(vim.cmd, 'colorscheme ' .. colorscheme)
+if not ok then
+    return
+end
 
 function SetupSignColumn()
     -- clear the background color from signcolumn so it looks the same as line
