@@ -77,6 +77,7 @@ use { 'hrsh7th/nvim-cmp',
 
 -- language server support
 use({
+    -- quickstart configurations for the Nvim LSP client.
     'neovim/nvim-lspconfig',
     requires = {
         -- easy way to install lsp servers to data/nvim/lsp_servers/
@@ -96,5 +97,10 @@ use({
     event = 'BufReadPre',
     config = get_config('colorizer'),
 })
+
+-- Things to try in the future:
+
+-- https://github.com/stevearc/dressing.nvim
+-- I think this lets us move stuff like code actions to a neat select dropdown
 
 -- vim: set sw=4 et:
