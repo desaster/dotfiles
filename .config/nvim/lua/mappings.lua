@@ -51,6 +51,9 @@ M.setup_keymaps = function()
     map('n', '<A-k>', '<C-w>k', { noremap = true })
     map('n', '<A-l>', '<C-w>l', { noremap = true })
 
+    -- escape from terminal back to normal mode
+    map('t', '<Esc>', '<C-\\><C-n>', { noremap = true })
+
     -- paste over currently selected text without yanking it
     map("v", "p", '"_dP', { noremap = true })
 
