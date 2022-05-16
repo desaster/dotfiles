@@ -62,6 +62,13 @@ use {
 -- TODO: sometimes just throws a bunch of errors
 use 'famiu/bufdelete.nvim'
 
+
+-- terminal window toggling solution
+use {
+    'akinsho/toggleterm.nvim',
+    config = get_config('toggleterm')
+}
+
 -- sigh, completion
 use { 'hrsh7th/nvim-cmp',
     requires = {
