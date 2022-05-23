@@ -53,7 +53,10 @@ use {
 -- fuzzy finder (see mappings.lua)
 use {
     'nvim-telescope/telescope.nvim',
-    requires = { 'nvim-lua/plenary.nvim' },
+    requires = {
+        'nvim-lua/plenary.nvim',
+        "nvim-telescope/telescope-file-browser.nvim"
+    },
     cmd = 'Telescope', -- lazy-load
     config = get_config('telescope')
 }
