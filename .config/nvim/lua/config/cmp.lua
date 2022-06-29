@@ -8,6 +8,9 @@ if not luasnip_ok then
     return
 end
 
+-- Use existing vs-code style snippets from friendly-snippets
+require('luasnip/loaders/from_vscode').lazy_load()
+
 -- Set completeopt to have a better completion experience
 -- TODO: explain why
 vim.o.completeopt = 'menuone,noselect'
