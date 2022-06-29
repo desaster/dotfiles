@@ -169,7 +169,11 @@ M.setup_lsp_keymaps = function(client, bufnr)
         buf_set_keymap('n', '<space>=', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
     end
     if client.resolved_capabilities.document_range_formatting then
+        -- TODO: this often doesn't work right
+        -- * formats the entire document instead of selection
+        -- * or doesn't do anything at all until after a short while
         buf_set_keymap("v", "<space>=", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
+        buf_set_keymap("v", "=", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
     end
 end
 

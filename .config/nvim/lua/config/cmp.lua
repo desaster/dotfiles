@@ -27,7 +27,7 @@ cmp.setup({
     },
     mapping = {
         -- completion menu randomly stays on screen, this will let us close it
-        ['<C-e>'] = cmp.mapping.close(),
+        ['<C-e>'] = cmp.mapping.abort(),
 
         -- this is annoying like this, but maybe it could be better if it also
         -- exited insert mode
@@ -84,6 +84,6 @@ cmp.setup({
         expand = function(args)
             luasnip.lsp_expand(args.body)
         end,
-    },
+    }
 })
 -- vim: set sw=4 et:
