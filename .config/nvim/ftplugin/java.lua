@@ -85,7 +85,13 @@ local config = {
     --
     -- If you don't plan on using the debugger or other eclipse.jdt.ls plugins you can remove this
     init_options = {
-        bundles = {}
+        bundles = {},
+
+        -- https://github.com/j-hui/fidget.nvim/issues/57#issuecomment-1231730001
+        extendedClientCapabilities = {
+            -- TODO: doesn't work, extra progress reports still displayed
+            progressReportProvider = false, -- use $/progress instead
+        },
     },
 
     on_attach = function(client, bufnr)

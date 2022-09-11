@@ -33,15 +33,16 @@ use({
 use({
     'nvim-treesitter/nvim-treesitter',
     config = get_config('treesitter'),
-    run = ':TSUpdate'
+    -- https://github.com/nvim-treesitter/nvim-treesitter/wiki/Installation#packernvim
+    run = function()
+        require('nvim-treesitter.install').update({ with_sync = true })
+    end,
 })
 
 -- Comment out stuff with gc, gcc etc https://github.com/numToStr/Comment.nvim#-usage
 use {
     'numToStr/Comment.nvim',
-    config = function()
-        require('Comment').setup()
-    end
+    config = get_config('comment')
 }
 
 -- show indentation guides on blank lines
@@ -61,10 +62,9 @@ use {
     config = get_config('telescope')
 }
 
--- delete buffers without messing up window layout (see mappings.lua)
+-- delete buffers without messing up window layout (see Bdelete in mappings.lua)
 -- TODO: sometimes just throws a bunch of errors
 use 'famiu/bufdelete.nvim'
-
 
 -- terminal window toggling solution
 use {
@@ -87,13 +87,16 @@ use { 'hrsh7th/nvim-cmp',
 }
 
 -- language server support
+-- NOTE: `git init` so project root is recognized
 use({
     -- quickstart configurations for the Nvim LSP client.
     'neovim/nvim-lspconfig',
     requires = {
-        -- easy way to install lsp servers to data/nvim/lsp_servers/
-        'williamboman/nvim-lsp-installer',
+        -- easy way to install lsp servers, :checkhealth mason
+        'williamboman/mason.nvim',
+        'williamboman/mason-lspconfig.nvim',
         -- progress thingie
+        -- NOTE: needs tsconfig.json for ts to work
         'j-hui/fidget.nvim';
     },
     config = get_config('lsp')

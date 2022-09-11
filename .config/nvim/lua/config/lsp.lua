@@ -3,8 +3,13 @@ if not lspconfig_ok then
     return
 end
 
-local lspinstaller_ok, lspinstaller = pcall(require, 'nvim-lsp-installer')
-if not lspinstaller_ok then
+local mason_ok, mason = pcall(require, 'mason')
+if not mason_ok then
+    return
+end
+
+local mason_lspconfig_ok, mason_lspconfig = pcall(require, 'mason-lspconfig')
+if not mason_lspconfig_ok then
     return
 end
 
@@ -23,14 +28,19 @@ local function on_attach(client, bufnr)
     require('mappings').setup_lsp_keymaps(client, bufnr)
 end
 
-lspinstaller.setup {
-    -- stuff should appear in ~/.local/share/nvim/lsp_servers/
-    -- status can be seen in :LspInstallInfo
-    automatic_installation = {
-        exclude = {
-            'ccls' -- ccls is difficult to build, but comes with debian
+-- TODO: stuff should appear in ~/.local/share/nvim/ where?
+mason.setup {
+    ui = {
+        icons = {
+            package_installed = "✓"
         }
     }
+
+    -- TODO: disable automatic installation of ccls and svls
+}
+
+mason_lspconfig.setup {
+    ensure_installed = { "sumneko_lua" },
 }
 
 lspconfig.sumneko_lua.setup {
@@ -46,6 +56,10 @@ lspconfig.sumneko_lua.setup {
         }
     }
 }
+
+--
+-- NOTE: for java config, look in ftplugin/java.lua
+--
 
 lspconfig.tsserver.setup {
     on_attach = on_attach,
