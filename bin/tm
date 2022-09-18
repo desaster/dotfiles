@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 # create a new tmux session, or switch to if already exists
 # no arguments: create session called "main"
