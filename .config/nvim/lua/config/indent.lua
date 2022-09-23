@@ -14,6 +14,6 @@ end
 indent_blankline.setup {
     -- some characters to use ¦┆│⎸ ▏
     char = '▏', -- hopefully this works everywhere. if not, comment it out
-    show_current_context = true, -- uses treesitter
-    show_current_context_start = false,
+    -- show_current_context = true, -- uses treesitter
+    -- show_current_context_start = false,
 }

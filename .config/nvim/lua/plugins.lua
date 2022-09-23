@@ -29,16 +29,6 @@ use({
     event = 'VimEnter'
 })
 
--- Better syntax highlighting, or something
-use({
-    'nvim-treesitter/nvim-treesitter',
-    config = get_config('treesitter'),
-    -- https://github.com/nvim-treesitter/nvim-treesitter/wiki/Installation#packernvim
-    run = function()
-        require('nvim-treesitter.install').update({ with_sync = true })
-    end,
-})
-
 -- Comment out stuff with gc, gcc etc https://github.com/numToStr/Comment.nvim#-usage
 use {
     'numToStr/Comment.nvim',
