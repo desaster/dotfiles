@@ -1,8 +1,3 @@
-ZSHRC_LOCAL="$HOME/.zshrc_local"
-if [ -f "$ZSHRC_LOCAL" ]; then
-    . "$ZSHRC_LOCAL"
-fi
-
 function venv3 {
     if [ -a "$1" ]
     then
@@ -25,11 +20,6 @@ if [ "$PS1" ]; then
     PS1="%n@%m %~ %# "
 
     alias ls='ls --color=auto'
-
-    PALETTE_SCRIPT="$HOME/.vim/plugged/gruvbox/gruvbox_256palette.sh"
-    if [ -f "$PALETTE_SCRIPT" ]; then
-        sh "$PALETTE_SCRIPT"
-    fi
 
     setopt VI
 
@@ -81,5 +71,10 @@ export VISUAL="vim"
 export EDITOR="vim"
 
 export PATH="$PATH:$HOME/bin"
+
+ZSHRC_LOCAL="$HOME/.zshrc_local"
+if [ -f "$ZSHRC_LOCAL" ]; then
+    . "$ZSHRC_LOCAL"
+fi
 
 # vim: set sw=4 sts=4:
