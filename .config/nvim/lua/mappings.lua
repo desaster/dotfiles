@@ -165,10 +165,10 @@ M.setup_lsp_keymaps = function(client, bufnr)
     -- TODO: this setup needs work
     --client.resolved_capabilities.document_formatting = false
     --client.resolved_capabilities.document_range_formatting = false
-    if client.resolved_capabilities.document_formatting then
+    if client.server_capabilities.document_formatting then
         buf_set_keymap('n', '<space>=', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
     end
-    if client.resolved_capabilities.document_range_formatting then
+    if client.server_capabilities.document_range_formatting then
         -- TODO: this often doesn't work right
         -- * formats the entire document instead of selection
         -- * or doesn't do anything at all until after a short while
