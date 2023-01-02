@@ -9,8 +9,9 @@ end
 
 -- Package manager
 use {
-    'smhc/packer.nvim',
-    branch = 'snapshot_load'
+    -- https://github.com/wbthomason/packer.nvim/pull/1010
+    'EdenEast/packer.nvim',
+    branch = 'feat/lockfile'
 }
 
 -- EditorConfig support
@@ -87,7 +88,11 @@ use({
         'williamboman/mason-lspconfig.nvim',
         -- progress thingie
         -- NOTE: needs tsconfig.json for ts to work
-        'j-hui/fidget.nvim';
+        'j-hui/fidget.nvim',
+
+        -- I still don't know exactly what null-ls does
+        'jose-elias-alvarez/null-ls.nvim',
+        'jayp0521/mason-null-ls.nvim',
     },
     config = get_config('lsp')
 })

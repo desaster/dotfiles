@@ -13,26 +13,60 @@ if not mason_lspconfig_ok then
     return
 end
 
+local null_ls_ok, null_ls = pcall(require, 'null-ls')
+if not null_ls_ok then
+    return
+end
+
+local mason_null_ls_ok, mason_null_ls = pcall(require, 'mason-null-ls')
+if not mason_null_ls_ok then
+    return
+end
+
 local fidget_ok, fidget = pcall(require, 'fidget')
 if fidget_ok then
     -- progress
-    fidget.setup{}
+    fidget.setup {}
 end
-
-
--- nvim-cmp supports additional completion capabilities
-local capabilities = vim.lsp.protocol.make_client_capabilities()
 
 -- do something on lsp attach
 local function on_attach(client, bufnr)
     require('mappings').setup_lsp_keymaps(client, bufnr)
 end
 
+-- TODO: maybe local override for this
+local servers = {
+    -- clangd = {},
+    -- gopls = {},
+    -- pyright = {},
+    -- rust_analyzer = {},
+    -- eslint = {},
+    tsserver = {},
+
+    sumneko_lua = {
+        Lua = {
+            workspace = { checkThirdParty = false },
+            telemetry = { enable = false },
+            diagnostics = {
+                -- seems like this shouldn't be global,
+                -- but then again we only use lua for nvim
+                globals = { 'vim' }
+            }
+        },
+    },
+}
+
+-- nvim-cmp supports additional completion capabilities, so broadcast that to servers
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
+
 -- TODO: stuff should appear in ~/.local/share/nvim/ where?
 mason.setup {
     ui = {
         icons = {
-            package_installed = "✓"
+            package_installed = "✓",
+            package_pending = "➜",
+            package_uninstalled = "✗"
         }
     }
 
@@ -40,41 +74,49 @@ mason.setup {
 }
 
 mason_lspconfig.setup {
-    ensure_installed = { "sumneko_lua" },
+    ensure_installed = vim.tbl_keys(servers),
+    automatic_installation = false,
 }
 
-lspconfig.sumneko_lua.setup {
-    on_attach = on_attach,
-    capabilities = capabilities,
-    settings = {
-        Lua = {
-            diagnostics = {
-                -- seems like this shouldn't be global,
-                -- but then again we only use lua for nvim
-                globals = { 'vim' }
-            }
-        }
+mason_lspconfig.setup_handlers {
+  function(server_name)
+    lspconfig[server_name].setup {
+      capabilities = capabilities,
+      on_attach = on_attach,
+      settings = servers[server_name],
     }
+  end,
 }
+
+mason_null_ls.setup({
+    ensure_installed = {
+        'prettier',
+        'eslint_d'
+    },
+    automatic_installation = false,
+    automatic_setup = false,
+})
+
+mason_null_ls.setup_handlers({
+    -- default handler, acts like auto setup
+    function(source_name, methods)
+        require("mason-null-ls.automatic_setup")(source_name, methods)
+    end,
+    eslint_d = function(source_name, methods)
+        null_ls.register(null_ls.builtins.diagnostics.eslint_d)
+        null_ls.register(null_ls.builtins.formatting.eslint_d)
+    end,
+})
+
+null_ls.setup({
+    sources = {
+        null_ls.builtins.formatting.prettier
+    }
+})
 
 --
 -- NOTE: for java config, look in ftplugin/java.lua
 --
-
-lspconfig.tsserver.setup {
-    on_attach = on_attach,
-    capabilities = capabilities
-}
-
-lspconfig.eslint.setup {
-    capabilities = capabilities
-}
-
-lspconfig.ccls.setup {
-    filetypes = { "c", "cpp" },
-    on_attach = on_attach,
-    capabilities = capabilities
-}
 
 -- https://github.com/neovim/nvim-lspconfig/wiki/UI-customization#customizing-how-diagnostics-are-displayed
 vim.diagnostic.config({

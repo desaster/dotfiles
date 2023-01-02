@@ -8,9 +8,18 @@ local fn = vim.fn
 local packer_bootstrap = nil
 local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
 if fn.empty(fn.glob(install_path)) > 0 then
-    packer_bootstrap = fn.system({ "git", "clone", "https://github.com/smhc/packer.nvim", install_path })
-    fn.system({ 'git', '-C', install_path, 'checkout', 'snapshot_load' })
-    fn.system({ 'patch', '-p1', './data/nvim/site/pack/packer/start/packer.nvim/lua/packer.lua', 'packer-fix.lua' })
+    packer_bootstrap = fn.system {
+        "git",
+        "clone",
+        "--depth",
+        "1",
+        -- "https://github.com/wbthomason/packer.nvim",
+        "-b",
+        "feat/lockfile",
+        "https://github.com/EdenEast/packer.nvim", -- Packer with lockfile support. Remove once it lands in upstream.
+        install_path,
+    }
+    print "Fresh Packer installation. Close and reopen Neovim to activate."
     execute("packadd packer.nvim")
 end
 
@@ -18,15 +27,32 @@ end
 -- Initialize packer
 --
 
-local packer = require 'packer'
+
+-- Use a protected call so we don't error out on first use
+local status_ok, packer = pcall(require, "packer")
+if not status_ok then
+  return
+end
+
+-- local packer = require 'packer'
 packer.init {
-    -- snapshot located in config since I also want it in version control
-    snapshot_path = vim.fn.stdpath('config'),
-    -- PR has a bug that requires the path again here
-    snapshot = require('packer.util').join_paths(vim.fn.stdpath('config'), 'packer-lock.json'),
-    disable_commands = false
+    -- disable_commands = false,
+    display = {
+        -- TODO: floating window is annoyingly pink when theme is not yet installed
+        open_fn = function()
+            return require("packer.util").float { border = "rounded" }
+        end,
+    },
+    git = {
+        clone_timeout = 300, -- Timeout, in seconds, for git clones
+    },
+    lockfile = {
+        enable = true,
+        regen_on_update = true,
+        path = require('packer.util').join_paths(vim.fn.stdpath('config'), 'packer-lock.json'),
+    }
 }
-packer.reset()
+--packer.reset()
 
 --
 -- Specify packages
@@ -39,8 +65,9 @@ require('plugins')
 --
 
 if packer_bootstrap then
-    vim.cmd 'autocmd User PackerComplete ++once lua require("packer").compile(nil, false)'
-    packer.install()
+    -- vim.cmd 'autocmd User PackerComplete ++once lua require("packer").compile(nil, false)'
+    -- packer.install()
+    packer.sync()
 end
 
 -- TODO: how to use packages directly after bootstrapping?
