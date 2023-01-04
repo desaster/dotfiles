@@ -69,8 +69,6 @@ mason.setup {
             package_uninstalled = "✗"
         }
     }
-
-    -- TODO: disable automatic installation of ccls and svls
 }
 
 mason_lspconfig.setup {
@@ -88,23 +86,38 @@ mason_lspconfig.setup_handlers {
   end,
 }
 
+-- TODO: read this list from somewhere, and allow it to be overwritten locally
 mason_null_ls.setup({
     ensure_installed = {
-        'prettier',
+        'prettierd',
         'eslint_d'
     },
     automatic_installation = false,
     automatic_setup = false,
 })
 
+local command_resolver = require("null-ls.helpers.command_resolver")
+
 mason_null_ls.setup_handlers({
     -- default handler, acts like auto setup
     function(source_name, methods)
         require("mason-null-ls.automatic_setup")(source_name, methods)
     end,
+    prettierd = function()
+      null_ls.register(null_ls.builtins.formatting.prettier.with({
+        disabled_filetypes = { "html.handlebars", "json" },
+        dynamic_command = command_resolver.from_node_modules(),
+      }))
+    end,
     eslint_d = function(source_name, methods)
-        null_ls.register(null_ls.builtins.diagnostics.eslint_d)
-        null_ls.register(null_ls.builtins.formatting.eslint_d)
+        -- found this here https://github.com/mattdonnelly/dotfiles/blob/master/config/nvim/lua/user/plugins/lsp/null_ls.lua#L48
+        -- maybe it helps with errors?
+        local opts = {
+          dynamic_command = command_resolver.from_node_modules(),
+        }
+        -- null_ls.register(null_ls.builtins.formatting.eslint_d).with(opts)
+        null_ls.register(null_ls.builtins.diagnostics.eslint_d.with(opts))
+        null_ls.register(null_ls.builtins.code_actions.eslint_d.with(opts))
     end,
 })
 
