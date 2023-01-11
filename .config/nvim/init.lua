@@ -21,8 +21,8 @@ if vim.fn.has('unix') == 1 and vim.fn.empty(vim.env.NEOVIM_NODE_VERSION) == 0 th
 end
 
 require("utils")
-require("packer_setup")
 require("mappings").setup_keymaps()
+require("lazy_setup")
 require("options")
 --require("autocmd")
 

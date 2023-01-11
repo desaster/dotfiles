@@ -105,8 +105,7 @@ mason_null_ls.setup_handlers({
     end,
     prettierd = function()
       null_ls.register(null_ls.builtins.formatting.prettier.with({
-        disabled_filetypes = { "html.handlebars", "json" },
-        dynamic_command = command_resolver.from_node_modules(),
+        disabled_filetypes = { "html.handlebars", "json" }
       }))
     end,
     eslint_d = function(source_name, methods)
