@@ -43,7 +43,7 @@ local servers = {
     -- eslint = {},
     tsserver = {},
 
-    sumneko_lua = {
+    lua_ls = {
         Lua = {
             workspace = { checkThirdParty = false },
             telemetry = { enable = false },
@@ -73,7 +73,7 @@ mason.setup {
 
 mason_lspconfig.setup {
     ensure_installed = vim.tbl_keys(servers),
-    automatic_installation = false,
+    automatic_installation = true,
 }
 
 mason_lspconfig.setup_handlers {
