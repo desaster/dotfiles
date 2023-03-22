@@ -66,6 +66,9 @@ return {
 
     -- language server support
     -- NOTE: `git init` so project root is recognized
+    --
+    -- TODO: before upgrading packages, check out
+    -- https://github.com/williamboman/mason.nvim/issues/1090#issuecomment-1478113100
     {
         -- quickstart configurations for the Nvim LSP client.
         'neovim/nvim-lspconfig',
@@ -77,9 +80,12 @@ return {
             -- NOTE: needs tsconfig.json for ts to work
             'j-hui/fidget.nvim',
 
-            -- I still don't know exactly what null-ls does
+            -- Allow use of prettierd, eslint_d
             'jose-elias-alvarez/null-ls.nvim',
-            'jayp0521/mason-null-ls.nvim',
+            'jay-babu/mason-null-ls.nvim',
+
+            -- neovim lua stuff, needs to be setup before lspconfig
+            'folke/neodev.nvim',
         },
         config = function() require('config/lsp') end,
     },

@@ -4,9 +4,9 @@ M.setup_keymaps = function()
     local g = vim.g -- global variables
 
     local function map(mode, lhs, rhs, opts)
-      local options = { noremap = true }
-      if opts then options = vim.tbl_extend('force', options, opts) end
-      vim.api.nvim_set_keymap(mode, lhs, rhs, options)
+        local options = { noremap = true }
+        if opts then options = vim.tbl_extend('force', options, opts) end
+        vim.api.nvim_set_keymap(mode, lhs, rhs, options)
     end
 
     -- TODO: what does this set_keymap from mjlbach do?
@@ -96,7 +96,6 @@ end
 -- Setup LSP specific keys for a buffer
 -- may be called by configs/lsp.lua or ftplugin/java.lua
 M.setup_lsp_keymaps = function(client, bufnr)
-
     -- set mappings only in current buffer with lsp enabled
     local function buf_set_keymap(...)
         vim.api.nvim_buf_set_keymap(bufnr, ...)
@@ -119,29 +118,25 @@ M.setup_lsp_keymaps = function(client, bufnr)
     buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
 
     -- Goto the definition of the word under the cursor, if there's only one, otherwise show all options in Telescope
-    --buf_set_keymap('n', '<F12>', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
-    --buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
     buf_set_keymap('n', '<F12>', '<cmd>Telescope lsp_definitions<CR>', opts)
     buf_set_keymap('n', 'gd', '<cmd>Telescope lsp_definitions<CR>', opts)
 
     -- Goto the implementation of the word under the cursor if there's only
     -- one, otherwise show all options in Telescope
-    --buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
     buf_set_keymap('n', 'gi', '<cmd>Telescope lsp_implementations<CR>', opts)
 
     -- Lists LSP references for word under the cursor
-    --buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
     buf_set_keymap('n', 'gr', '<cmd>Telescope lsp_references<CR>', opts)
 
     -- code actions (e.g. add import)
     buf_set_keymap('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
     buf_set_keymap('n', '<leader>a', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
     buf_set_keymap('n', '<M-CR>', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts) -- IntelliJ IDEA style Alt-Enter
+    -- buf_set_keymap('v', '<leader>ca', '<cmd>lua vim.lsp.buf.range_code_action()<CR>', opts)
 
     -- Goto the definition of the type of the word under the cursor, if
     -- there's only one, otherwise show all options in Telescope
-    --buf_set_keymap('n', '<leader>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-    buf_set_keymap('n', '<leader>D', '<cmd>Telescope lsp_type_definitions<CR>', opts)
+    buf_set_keymap('n', 'gt', '<cmd>Telescope lsp_type_definitions<CR>', opts)
 
     -- workspace folders, do I want this stuff?
     --buf_set_keymap('n', '<leader>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
@@ -149,10 +144,10 @@ M.setup_lsp_keymaps = function(client, bufnr)
     --buf_set_keymap('n', '<leader>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
 
     -- rename (refactor) symbol
-    buf_set_keymap('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-    buf_set_keymap('n', '<F2>', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-
-    -- buf_set_keymap('v', '<leader>ca', '<cmd>lua vim.lsp.buf.range_code_action()<CR>', opts)
+    if client.server_capabilities.renameProvider then
+        buf_set_keymap('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+        buf_set_keymap('n', '<F2>', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+    end
 
     -- popup current diagnostics (e.g. an error)
     buf_set_keymap('n', '<leader>e', '<cmd>lua vim.diagnostic.open_float(nil, { focus=false, scope="cursor" })<CR>', opts)
@@ -161,19 +156,14 @@ M.setup_lsp_keymaps = function(client, bufnr)
     buf_set_keymap('n', '<F8>', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
     buf_set_keymap('n', '<S-F8>', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
 
-    -- disable formatting in favour of eslint formatting
-    -- TODO: this setup needs work
-    --client.resolved_capabilities.document_formatting = false
-    --client.resolved_capabilities.document_range_formatting = false
-    if client.server_capabilities.document_formatting then
-        buf_set_keymap('n', '<space>=', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+    if client.server_capabilities.documentFormattingProvider then
+        -- TODO: we should utilize filtering in buf.format() to prioritize null-ls
+        buf_set_keymap('n', '<leader>=', '<cmd>lua vim.lsp.buf.format()<CR>', opts)
     end
-    if client.server_capabilities.document_range_formatting then
-        -- TODO: this often doesn't work right
-        -- * formats the entire document instead of selection
-        -- * or doesn't do anything at all until after a short while
-        buf_set_keymap("v", "<space>=", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
-        buf_set_keymap("v", "=", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
+
+    if client.server_capabilities.documentRangeFormattingProvider then
+        vim.keymap.set('v', '<leader>=', vim.lsp.buf.format, { silent = true, buffer = bufnr })
+        vim.keymap.set('v', '=', vim.lsp.buf.format, { silent = true, buffer = bufnr })
     end
 end
 

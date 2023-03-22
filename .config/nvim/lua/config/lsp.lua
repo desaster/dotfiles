@@ -23,10 +23,24 @@ if not mason_null_ls_ok then
     return
 end
 
+-- progress thingie
 local fidget_ok, fidget = pcall(require, 'fidget')
 if fidget_ok then
-    -- progress
-    fidget.setup {}
+    fidget.setup {
+        sources = {
+            ['null-ls'] = {
+                -- disable until https://github.com/j-hui/fidget.nvim/issues/122
+                ignore = true
+            }
+        }
+    }
+end
+
+-- neodev development plugin
+-- https://github.com/folke/neodev.nvim#-setup
+local neodev_ok, neodev = pcall(require, 'neodev')
+if neodev_ok then
+    neodev.setup({})
 end
 
 -- do something on lsp attach
@@ -34,33 +48,13 @@ local function on_attach(client, bufnr)
     require('mappings').setup_lsp_keymaps(client, bufnr)
 end
 
--- TODO: maybe local override for this
-local servers = {
-    -- clangd = {},
-    -- gopls = {},
-    -- pyright = {},
-    -- rust_analyzer = {},
-    -- eslint = {},
-    tsserver = {},
-
-    lua_ls = {
-        Lua = {
-            workspace = { checkThirdParty = false },
-            telemetry = { enable = false },
-            diagnostics = {
-                -- seems like this shouldn't be global,
-                -- but then again we only use lua for nvim
-                globals = { 'vim' }
-            }
-        },
-    },
-}
+-- list of servers with settings, etc
+local servers = require('lsp-servers')
 
 -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
--- TODO: stuff should appear in ~/.local/share/nvim/ where?
 mason.setup {
     ui = {
         icons = {
@@ -71,26 +65,52 @@ mason.setup {
     }
 }
 
+-- Generate a list of servers for the ensure_installed option.
+-- This allows some servers to specify ensure_installed = false
+local get_ensure_installed = function(servertbl)
+    local ensure_installed = {}
+    for i, v in pairs(servertbl) do
+        if (v.ensure_installed == nil or v.ensure_installed == true) then
+            table.insert(ensure_installed, i)
+        end
+    end
+    return ensure_installed
+end
+
 mason_lspconfig.setup {
-    ensure_installed = vim.tbl_keys(servers),
     automatic_installation = true,
+    ensure_installed = get_ensure_installed(servers),
 }
 
 mason_lspconfig.setup_handlers {
-  function(server_name)
-    lspconfig[server_name].setup {
-      capabilities = capabilities,
-      on_attach = on_attach,
-      settings = servers[server_name],
-    }
-  end,
+    function(server_name)
+        local opts = {
+            capabilities = capabilities,
+            -- allow servers table to override on_attach
+            on_attach = (servers[server_name] ~= nil and servers[server_name].on_attach ~= nil) and
+                function (server, bufnr)
+                    return servers[server_name].on_attach(server, bufnr, on_attach)
+                end or
+                on_attach,
+            -- settings are optional
+            settings = (servers[server_name] ~= nil and servers[server_name].settings ~= nil) and
+                servers[server_name].settings or
+                {},
+        }
+        -- servers table may optionally set cmd
+        if (servers[server_name] ~= nil and servers[server_name].cmd ~= nil) then
+            opts.cmd = servers[server_name].cmd
+        end
+        lspconfig[server_name].setup(opts)
+    end,
 }
 
--- TODO: read this list from somewhere, and allow it to be overwritten locally
+-- TODO: read this list from somewhere, just like with lsp servers
 mason_null_ls.setup({
     ensure_installed = {
         'prettierd',
-        'eslint_d'
+        'eslint_d',
+        'jq',
     },
     automatic_installation = false,
     automatic_setup = false,
@@ -101,12 +121,19 @@ local command_resolver = require("null-ls.helpers.command_resolver")
 mason_null_ls.setup_handlers({
     -- default handler, acts like auto setup
     function(source_name, methods)
-        require("mason-null-ls.automatic_setup")(source_name, methods)
+        -- all sources with no handler get passed here
+        require('mason-null-ls.automatic_setup')(source_name, methods)
     end,
     prettierd = function()
-      null_ls.register(null_ls.builtins.formatting.prettier.with({
-        disabled_filetypes = { "html.handlebars", "json" }
-      }))
+        null_ls.register(null_ls.builtins.formatting.prettierd.with({
+            filetypes = {
+                "typescript",
+                "typescriptreact",
+                "javascript",
+                "javascriptreact"
+            },
+            dynamic_command = command_resolver.from_node_modules(),
+        }))
     end,
     eslint_d = function(source_name, methods)
         -- found this here https://github.com/mattdonnelly/dotfiles/blob/master/config/nvim/lua/user/plugins/lsp/null_ls.lua#L48
@@ -114,16 +141,16 @@ mason_null_ls.setup_handlers({
         local opts = {
           dynamic_command = command_resolver.from_node_modules(),
         }
-        -- null_ls.register(null_ls.builtins.formatting.eslint_d).with(opts)
         null_ls.register(null_ls.builtins.diagnostics.eslint_d.with(opts))
         null_ls.register(null_ls.builtins.code_actions.eslint_d.with(opts))
     end,
+    jq = function()
+       null_ls.register(null_ls.builtins.formatting.jq)
+    end
 })
 
 null_ls.setup({
-    sources = {
-        null_ls.builtins.formatting.prettier
-    }
+    on_attach = on_attach
 })
 
 --
