@@ -112,7 +112,20 @@ mason_null_ls.setup({
         'eslint_d',
         'jq',
     },
+
+    -- Run `require("null-ls").setup`.
+    -- Will automatically install masons tools based on selected sources in `null-ls`.
+    -- Can also be an exclusion list.
+    -- Example: `automatic_installation = { exclude = { "rust_analyzer", "solargraph" } }`
     automatic_installation = false,
+
+    -- Whether sources that are installed in mason should be automatically set up in null-ls.
+    -- Removes the need to set up null-ls manually.
+    -- Can either be:
+    --  - false: Null-ls is not automatically registered.
+    --  - true: Null-ls is automatically registered.
+    --  - { types = { SOURCE_NAME = {TYPES} } }. Allows overriding default configuration.
+    --  Ex: { types = { eslint_d = {'formatting'} } }
     automatic_setup = false,
 })
 
@@ -132,13 +145,16 @@ mason_null_ls.setup_handlers({
                 "javascript",
                 "javascriptreact"
             },
+            --- resolver that searches for a local node_modules executable and falls back to a global executable
+            -- TODO: is this already used by default?
             dynamic_command = command_resolver.from_node_modules(),
         }))
     end,
-    eslint_d = function(source_name, methods)
+    eslint_d = function()
         -- found this here https://github.com/mattdonnelly/dotfiles/blob/master/config/nvim/lua/user/plugins/lsp/null_ls.lua#L48
         -- maybe it helps with errors?
         local opts = {
+            --- resolver that searches for a local node_modules executable and falls back to a global executable
           dynamic_command = command_resolver.from_node_modules(),
         }
         null_ls.register(null_ls.builtins.diagnostics.eslint_d.with(opts))
@@ -150,7 +166,8 @@ mason_null_ls.setup_handlers({
 })
 
 null_ls.setup({
-    on_attach = on_attach
+    on_attach = on_attach,
+    debug = false,
 })
 
 --
