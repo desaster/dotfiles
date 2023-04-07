@@ -1,8 +1,5 @@
 return {
 
-    -- EditorConfig support
-    { 'gpanders/editorconfig.nvim' },
-
     -- Theme
     {
         'sainnhe/gruvbox-material',
