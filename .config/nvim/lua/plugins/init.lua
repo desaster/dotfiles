@@ -13,6 +13,12 @@ return {
         event = 'VimEnter',
     },
 
+    {
+        'nvim-treesitter/nvim-treesitter',
+        build = ":TSUpdate",
+        config = function() require('config/treesitter') end,
+    },
+
     -- Comment out stuff with gc, gcc etc https://github.com/numToStr/Comment.nvim#-usage
     {
         'numToStr/Comment.nvim',
@@ -30,7 +36,8 @@ return {
         'nvim-telescope/telescope.nvim',
         dependencies = {
             'nvim-lua/plenary.nvim',
-            "nvim-telescope/telescope-file-browser.nvim"
+            'nvim-telescope/telescope-file-browser.nvim',
+            'nvim-treesitter/nvim-treesitter',
         },
         -- TODO cmd = 'Telescope', -- lazy-load
         config = function() require('config/telescope') end,
@@ -38,7 +45,10 @@ return {
 
     -- delete buffers without messing up window layout (see Bdelete in mappings.lua)
     -- TODO: sometimes just throws a bunch of errors
-    { 'famiu/bufdelete.nvim' },
+    {
+        'ojroques/nvim-bufdel',
+        config = function() require('config/nvim-bufdel') end,
+    },
 
     -- terminal window toggling solution
     {

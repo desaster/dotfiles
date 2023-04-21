@@ -24,7 +24,7 @@ M.setup_keymaps = function()
     map('n', '<leader>#', ':b#<CR>')
 
     -- close the current buffer without closing (famiu/bufdelete.nvim)
-    map('n', '<leader>d', ':silent Bdelete<CR>', { silent = true })
+    map('n', '<leader>d', ':silent BufDel<CR>', { silent = true })
 
     -- switch to buffers by number
     map('n', '<leader>1', ':LualineBuffersJump 1<CR>', { noremap = true, silent = true })

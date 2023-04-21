@@ -5,7 +5,7 @@ end
 
 configs.setup {
     -- A list of parser names, or "all"
-    ensure_installed = 'all',
+    ensure_installed = { "c", "lua", "javascript", "typescript" },
 
     -- Install parsers synchronously (only applied to `ensure_installed`)
     sync_install = false,
@@ -30,7 +30,7 @@ configs.setup {
         additional_vim_regex_highlighting = false,
     },
     indent = {
-        enable = true,
+        enable = false,
         disable = { 'yaml' }
     }
 }
