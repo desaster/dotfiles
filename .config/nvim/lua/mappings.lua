@@ -155,6 +155,11 @@ M.setup_lsp_keymaps = function(client, bufnr)
     -- jump to next diagnostic (e.g. an error)
     buf_set_keymap('n', '<F8>', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
     buf_set_keymap('n', '<S-F8>', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
+    -- Actually, shift-F8 may appear as F20
+    -- 1. check the escape code with: showkey -a
+    -- 2. create a debug log with: nvim -V3log
+    -- 3 .search for the escape code under --- Terminal info ---
+    buf_set_keymap('n', '<F20>', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
 
     if client.server_capabilities.documentFormattingProvider then
         -- TODO: we should utilize filtering in buf.format() to prioritize null-ls
