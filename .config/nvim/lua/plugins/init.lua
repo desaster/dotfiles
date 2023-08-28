@@ -83,13 +83,17 @@ return {
             -- easy way to install lsp servers, :checkhealth mason
             'williamboman/mason.nvim',
             'williamboman/mason-lspconfig.nvim',
-            -- progress thingie
-            -- NOTE: needs tsconfig.json for ts to work
-            'j-hui/fidget.nvim',
 
             -- Allow use of prettierd, eslint_d
             'jose-elias-alvarez/null-ls.nvim',
             'jay-babu/mason-null-ls.nvim',
+
+            -- progress thingie
+            -- NOTE: needs tsconfig.json for ts to work
+            {
+                'j-hui/fidget.nvim',
+                tag = 'legacy',
+            },
 
             -- neovim lua stuff, needs to be setup before lspconfig
             'folke/neodev.nvim',

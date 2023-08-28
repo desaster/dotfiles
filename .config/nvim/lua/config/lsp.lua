@@ -105,6 +105,8 @@ mason_lspconfig.setup_handlers {
     end,
 }
 
+local command_resolver = require("null-ls.helpers.command_resolver")
+
 -- TODO: read this list from somewhere, just like with lsp servers
 mason_null_ls.setup({
     ensure_installed = {
@@ -127,42 +129,40 @@ mason_null_ls.setup({
     --  - { types = { SOURCE_NAME = {TYPES} } }. Allows overriding default configuration.
     --  Ex: { types = { eslint_d = {'formatting'} } }
     automatic_setup = false,
-})
 
-local command_resolver = require("null-ls.helpers.command_resolver")
-
-mason_null_ls.setup_handlers({
-    -- default handler, acts like auto setup
-    function(source_name, methods)
-        -- all sources with no handler get passed here
-        require('mason-null-ls.automatic_setup')(source_name, methods)
-    end,
-    prettierd = function()
-        null_ls.register(null_ls.builtins.formatting.prettierd.with({
-            filetypes = {
-                "typescript",
-                "typescriptreact",
-                "javascript",
-                "javascriptreact"
-            },
-            --- resolver that searches for a local node_modules executable and falls back to a global executable
-            -- TODO: is this already used by default?
-            dynamic_command = command_resolver.from_node_modules(),
-        }))
-    end,
-    eslint_d = function()
-        -- found this here https://github.com/mattdonnelly/dotfiles/blob/master/config/nvim/lua/user/plugins/lsp/null_ls.lua#L48
-        -- maybe it helps with errors?
-        local opts = {
-            --- resolver that searches for a local node_modules executable and falls back to a global executable
-          dynamic_command = command_resolver.from_node_modules(),
-        }
-        null_ls.register(null_ls.builtins.diagnostics.eslint_d.with(opts))
-        null_ls.register(null_ls.builtins.code_actions.eslint_d.with(opts))
-    end,
-    jq = function()
-       null_ls.register(null_ls.builtins.formatting.jq)
-    end
+    handlers = {
+        -- default handler, acts like auto setup
+        function(source_name, methods)
+            -- all sources with no handler get passed here
+            require('mason-null-ls.automatic_setup')(source_name, methods)
+        end,
+        prettierd = function()
+            null_ls.register(null_ls.builtins.formatting.prettierd.with({
+                filetypes = {
+                    "typescript",
+                    "typescriptreact",
+                    "javascript",
+                    "javascriptreact"
+                },
+                --- resolver that searches for a local node_modules executable and falls back to a global executable
+                -- TODO: is this already used by default?
+                dynamic_command = command_resolver.from_node_modules(),
+            }))
+        end,
+        eslint_d = function()
+            -- found this here https://github.com/mattdonnelly/dotfiles/blob/master/config/nvim/lua/user/plugins/lsp/null_ls.lua#L48
+            -- maybe it helps with errors?
+            local opts = {
+                --- resolver that searches for a local node_modules executable and falls back to a global executable
+              dynamic_command = command_resolver.from_node_modules(),
+            }
+            null_ls.register(null_ls.builtins.diagnostics.eslint_d.with(opts))
+            null_ls.register(null_ls.builtins.code_actions.eslint_d.with(opts))
+        end,
+        jq = function()
+           null_ls.register(null_ls.builtins.formatting.jq)
+        end
+    }
 })
 
 null_ls.setup({
