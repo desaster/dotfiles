@@ -100,6 +100,14 @@ return {
     -- java, doesn't use lspconfig, see ftplugin/java.lua
     { 'mfussenegger/nvim-jdtls' },
 
+    -- GitHub co-pilot
+    {
+        'zbirenbaum/copilot.lua',
+        cmd = 'Copilot',
+        event = 'InsertEnter',
+        config = function() require('config/copilot') end,
+    },
+
     -- colorize hex codes
     {
         'norcalli/nvim-colorizer.lua',
