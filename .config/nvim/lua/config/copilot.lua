@@ -13,7 +13,7 @@ copilot.setup({
     suggestion = {
         auto_trigger = false,
         keymap = {
-            accept = "<M-j>",
+            accept = false,
             accept_word = false,
             accept_line = false,
             next = "<M-n>",

@@ -8,6 +8,8 @@ if not luasnip_ok then
     return
 end
 
+local copilot_ok, copilot_suggestion = pcall(require, 'copilot.suggestion')
+
 -- Use existing vs-code style snippets from friendly-snippets
 require('luasnip/loaders/from_vscode').lazy_load()
 
@@ -54,6 +56,10 @@ cmp.setup({
                 luasnip.expand()
             elseif luasnip.expand_or_jumpable() then
                 luasnip.expand_or_jump()
+            -- only fallback to accepting copilot suggestion if the user has
+            -- closed any potential cmp menus (with ctrl-e)
+            elseif copilot_ok and copilot_suggestion.is_visible() then
+                copilot_suggestion.accept()
             else
                 fallback()
             end
@@ -86,4 +92,5 @@ cmp.setup({
         end,
     }
 })
+
 -- vim: set sw=4 et:
