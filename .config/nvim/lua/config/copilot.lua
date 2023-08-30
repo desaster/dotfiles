@@ -11,7 +11,7 @@ copilot.setup({
         }
     },
     suggestion = {
-        auto_trigger = false,
+        auto_trigger = true, -- Toggle with :Copilto suggestion
         keymap = {
             accept = false,
             accept_word = false,
