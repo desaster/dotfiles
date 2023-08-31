@@ -11,4 +11,11 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-require("lazy").setup("plugins")
+require("lazy").setup("plugins", {
+    change_detection = {
+        -- the notifications seem to mess up neovim, but let's just
+        -- disable the whole thing
+        enabled = false,
+        notify = false,
+    }
+})
