@@ -6,5 +6,6 @@ end
 toggleterm.setup {
     size = 10,
     open_mapping = [[<F4>]],
-    direction = horizontal
+    direction = horizontal,
+    auto_scroll = false,
 }
