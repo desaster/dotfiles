@@ -21,14 +21,15 @@ opt.shortmess = 'aoOIt'
 opt.showbreak = '←'
 opt.virtualedit = 'block'
 
--- don't continue comment when inserting new line with 'o'
--- comment still continues when hitting enter in insert mode (option 'r')
-opt.formatoptions:remove('o')
+-- don't continue comment when inserting new line with 'o' or Enter
+opt.formatoptions:remove('o') -- o
+opt.formatoptions:remove('r') -- enter
 -- something magically resets this setting, so let's do this ugly hack:
 vim.api.nvim_create_autocmd("VimEnter", {
     once = true,
     callback = function()
         opt.formatoptions:remove('o')
+        opt.formatoptions:remove('r')
     end,
 })
 
