@@ -14,6 +14,16 @@ return {
     },
 
     {
+        "nvim-tree/nvim-tree.lua",
+        version = "*",
+        lazy = false, -- Lazy loading is not recommended.
+        dependencies = {
+            "nvim-tree/nvim-web-devicons",
+        },
+        config = function() require('config/nvim-tree') end,
+    },
+
+    {
         'nvim-treesitter/nvim-treesitter',
         build = ":TSUpdate",
         config = function() require('config/treesitter') end,

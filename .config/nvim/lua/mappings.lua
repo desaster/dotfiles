@@ -86,7 +86,7 @@ M.setup_keymaps = function()
 
     -- Lists files and folders in your current working directory, open files,
     -- navigate your filesystem, and create new files and folders
-    map('n', '<F7>', ':Telescope file_browser<CR>')
+    map('n', '<F7>', ':NvimTreeToggle<CR>')
 
     -- list buffers
     map('n', ';', ':Telescope buffers<CR>')
