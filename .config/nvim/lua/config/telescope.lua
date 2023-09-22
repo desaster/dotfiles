@@ -18,6 +18,9 @@ telescope.setup({
                 override_file_sorter = true,
             },
         },
+        file_ignore_patterns = {
+            "node_modules"
+        },
         vimgrep_arguments = {
             'rg',
             '--color=never',
