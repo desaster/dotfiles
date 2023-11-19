@@ -4,15 +4,18 @@ if not status_ok then
 end
 
 colorizer.setup({
-    "conf",
-    "css",
-    "html",
-    "javascript",
-    "javascriptreact",
-    "typescript",
-    "typescriptreact",
-    "json",
-    "jsonc",
-    "lua",
-    "yaml",
+    filetypes = {
+        "conf",
+        "css",
+        "html",
+        "javascript",
+        "javascriptreact",
+        "typescript",
+        "typescriptreact",
+        "json",
+        "jsonc",
+        "lua",
+        "yaml",
+    },
+    user_default_options = { mode = "background", },
 })

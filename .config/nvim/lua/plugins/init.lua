@@ -125,7 +125,7 @@ return {
 
     -- colorize hex codes
     {
-        'norcalli/nvim-colorizer.lua',
+        'NvChad/nvim-colorizer.lua',
         event = 'BufReadPre',
         config = function() require('config/colorizer') end,
     }
