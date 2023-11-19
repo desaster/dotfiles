@@ -27,11 +27,8 @@ end
 local fidget_ok, fidget = pcall(require, 'fidget')
 if fidget_ok then
     fidget.setup {
-        sources = {
-            ['null-ls'] = {
-                -- disable until https://github.com/j-hui/fidget.nvim/issues/122
-                ignore = true
-            }
+        progress = {
+            ignore = { 'null-ls' }, -- disable spammy diagnostics https://github.com/j-hui/fidget.nvim/issues/122
         }
     }
 end

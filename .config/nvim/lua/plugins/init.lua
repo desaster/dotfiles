@@ -103,8 +103,7 @@ return {
             -- progress thingie
             -- NOTE: needs tsconfig.json for ts to work
             {
-                'j-hui/fidget.nvim',
-                tag = 'legacy',
+                'j-hui/fidget.nvim'
             },
 
             -- neovim lua stuff, needs to be setup before lspconfig
