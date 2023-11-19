@@ -97,7 +97,7 @@ return {
             'williamboman/mason-lspconfig.nvim',
 
             -- Allow use of prettierd, eslint_d
-            'jose-elias-alvarez/null-ls.nvim',
+            'nvimtools/none-ls.nvim',
             'jay-babu/mason-null-ls.nvim',
 
             -- progress thingie
