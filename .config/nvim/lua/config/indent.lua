@@ -3,17 +3,22 @@
 --vim.opt.listchars:append("space:⋅")
 --vim.opt.listchars:append("eol:↴")
 
-vim.cmd [[hi IndentBlankLineChar ctermfg=109 guifg=#32302f]] -- a bit darker than default
-vim.cmd [[hi link IndentBlankLineContextChar LineNr]] -- lighter color context
+vim.cmd [[hi IblIndent ctermfg=109 guifg=#32302f]] -- a bit darker than default
 
-local status_ok, indent_blankline = pcall(require, 'indent_blankline')
+local status_ok, ibl = pcall(require, 'ibl')
 if not status_ok then
     return
 end
 
-indent_blankline.setup {
-    -- some characters to use ¦┆│⎸ ▏
-    char = '▏', -- hopefully this works everywhere. if not, comment it out
-    -- show_current_context = true, -- uses treesitter
-    -- show_current_context_start = false,
+-- :help ibl.config
+ibl.setup {
+    enabled = true, -- HINT: ibl can be toggled with :IBLToggle
+    indent = { char = '▏' }, -- narrower than default
+    scope = {
+        enabled = true, -- HINT: scope can be toggled with :IBLToggleScope
+        char = '▏', -- same char, but highlight color will be different
+        show_start = false,
+        show_end = false,
+    },
+    --scope = { exclude = { language = { "lua" } } },
 }

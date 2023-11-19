@@ -38,6 +38,8 @@ return {
     -- show indentation guides on blank lines
     {
         'lukas-reineke/indent-blankline.nvim',
+        main = 'ibl',
+        opts = {},
         config = function() require('config/indent') end,
     },
 
