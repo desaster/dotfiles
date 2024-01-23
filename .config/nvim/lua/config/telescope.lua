@@ -5,6 +5,8 @@ end
 
 telescope.setup({
     defaults = {
+        --path_display = { "shorten" },
+        path_display = { "truncate" },
         disable_devicons = true,
         prompt_prefix = "τ ",
         entry_prefix = "○ ",
