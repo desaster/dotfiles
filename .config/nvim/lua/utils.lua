@@ -53,4 +53,20 @@ function M.glob_require(package)
     return combined
 end
 
+-- Clear extra crap from the screen so we can manually copy
+-- contents to the clipboard. This is useful when the clipboard
+-- integration is not working for whatever reason.
+function M.toggle_crap()
+    -- if line numbers are enabled, assume we have indent-blankline enabled too
+    if vim.wo.number then
+        vim.wo.number = false
+        vim.wo.relativenumber = false
+        if vim.fn.exists(':IBLDisable') > 0 then vim.cmd('IBLDisable') end
+    else
+        vim.wo.number = true
+        vim.wo.relativenumber = true
+        if vim.fn.exists(':IBLEnable') > 0 then vim.cmd('IBLEnable') end
+    end
+end
+
 return M

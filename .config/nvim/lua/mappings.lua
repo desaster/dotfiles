@@ -91,6 +91,11 @@ M.setup_keymaps = function()
     -- list buffers
     map('n', ';', ':Telescope buffers<CR>')
     map('n', '<leader><space>', ':Telescope buffers<CR>') -- 2x-space, could we live with this?
+
+    --
+    -- useful things
+    --
+    map('n', '<F10>', ':lua require("utils").toggle_crap()<CR>')
 end
 
 -- Setup LSP specific keys for a buffer
