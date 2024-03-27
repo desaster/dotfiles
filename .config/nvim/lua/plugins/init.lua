@@ -98,6 +98,7 @@ return {
 
             -- Allow use of prettierd, eslint_d
             'nvimtools/none-ls.nvim',
+            'nvimtools/none-ls-extras.nvim',
             'jay-babu/mason-null-ls.nvim',
 
             -- progress thingie

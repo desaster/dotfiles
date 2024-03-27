@@ -153,11 +153,15 @@ mason_null_ls.setup({
                 --- resolver that searches for a local node_modules executable and falls back to a global executable
               dynamic_command = command_resolver.from_node_modules(),
             }
-            null_ls.register(null_ls.builtins.diagnostics.eslint_d.with(opts))
-            null_ls.register(null_ls.builtins.code_actions.eslint_d.with(opts))
+            null_ls.register(require("none-ls.diagnostics.eslint_d").with(opts))
+            null_ls.register(require("none-ls.code_actions.eslint_d").with(opts))
         end,
+        -- TODO: formatting json is actually using prettier and not jq,
+        -- and I've forgotten how to work with this spaghetti config
         jq = function()
-           null_ls.register(null_ls.builtins.formatting.jq)
+            null_ls.register(require("none-ls.formatting.jq").with({
+                filetypes = { "json" },
+            }))
         end
     }
 })
@@ -165,6 +169,11 @@ mason_null_ls.setup({
 null_ls.setup({
     on_attach = on_attach,
     debug = false,
+    sources = {
+        require("none-ls.diagnostics.eslint_d"),
+        null_ls.builtins.formatting.stylua,
+        null_ls.builtins.formatting.prettier,
+    },
 })
 
 --
