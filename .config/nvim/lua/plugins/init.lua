@@ -132,18 +132,17 @@ return {
             { "nvim-lua/plenary.nvim" }, -- for curl, log wrapper
         },
         opts = {
-            debug = true, -- Enable debugging
+            debug = false, -- Enable debugging
             -- See Configuration section for rest
         },
         -- See Commands section for default commands if you want to lazy load on them
         -- TODO: add config file
     },
 
-    -- colorize hex codes
+    -- colorize hex codes #dadada
     {
-        'NvChad/nvim-colorizer.lua',
-        event = 'BufReadPre',
-        config = function() require('config/colorizer') end,
+        'brenoprata10/nvim-highlight-colors',
+        config = function() require('config/nvim-highlight-colors') end,
     }
 }
 
