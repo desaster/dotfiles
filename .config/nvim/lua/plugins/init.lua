@@ -55,7 +55,7 @@ return {
         config = function() require('config/telescope') end,
     },
 
-    -- delete buffers without messing up window layout (see Bdelete in mappings.lua)
+    -- delete buffers without messing up window layout :BufDel
     -- TODO: sometimes just throws a bunch of errors
     {
         'ojroques/nvim-bufdel',

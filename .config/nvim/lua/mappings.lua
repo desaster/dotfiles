@@ -17,8 +17,8 @@ M.setup_keymaps = function()
     -- next/previous buffer
     map('n', '<leader>l', ':bnext<CR>', { silent = true })
     map('n', '<leader>h', ':bprevious<CR>', { silent = true })
-    map("n", "<TAB>", ":bnext<CR>", { silent = true })
-    map("n", "<S-TAB>", ":bprevious<CR>", { silent = true })
+    map('n', '<TAB>', ':bnext<CR>', { silent = true })
+    map('n', '<S-TAB>', ':bprevious<CR>', { silent = true })
 
     -- switch to alternate buffer
     map('n', '<leader>#', ':b#<CR>')
@@ -91,6 +91,11 @@ M.setup_keymaps = function()
     -- list buffers
     map('n', ';', ':Telescope buffers<CR>')
     map('n', '<leader><space>', ':Telescope buffers<CR>') -- 2x-space, could we live with this?
+
+    --
+    -- Copilot Chat
+    -- 
+    map('n', '<F9>', '<cmd>lua require("CopilotChat").toggle()<CR>')
 
     --
     -- useful things
