@@ -61,10 +61,12 @@ function M.toggle_crap()
     if vim.wo.number then
         vim.wo.number = false
         vim.wo.relativenumber = false
+        vim.wo.signcolumn = 'no'
         if vim.fn.exists(':IBLDisable') > 0 then vim.cmd('IBLDisable') end
     else
         vim.wo.number = true
         vim.wo.relativenumber = true
+        vim.wo.signcolumn = 'yes'
         if vim.fn.exists(':IBLEnable') > 0 then vim.cmd('IBLEnable') end
     end
 end

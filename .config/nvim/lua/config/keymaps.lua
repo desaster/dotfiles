@@ -44,3 +44,6 @@ keymap.set('c', '<C-e>', '<End>', opts)
 -- I keep accidentally hitting q:, which opens some ex window.
 -- Slowly typing q: still seems to open ex, which is ok.
 keymap.set('n', 'q:', ':q')
+
+-- useful things
+keymap.set('n', '<F10>', ':lua require("util.misc").toggle_crap()<CR>')
