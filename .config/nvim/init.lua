@@ -1,12 +1,7 @@
 --
 -- Configuring neovim is hell. This is yet another attempt.
 --
-
--- Plan:
--- * Add one thing at a time
--- * Do not add another thing until the one thing works in an acceptable manner
--- * Use packer's snapshot feature to do some kind of a lock file to avoid updates breaking everything
--- 	(NOTE: this currently works in a rather complicated manner)
+-- This time with LazyVim!
 --
 
 -- use node from nvm if version number is specified
@@ -31,10 +26,11 @@ if vim.fn.has('unix') == 1 and vim.fn.empty(vim.env.NEOVIM_NODE_VERSION) == 0 th
     end
 end
 
-require("utils")
-require("mappings").setup_keymaps()
-require("lazy_setup")
-require("options")
---require("autocmd")
+-- Debugging
+_G.dd = function(...)
+    require("util.debug").dump(...)
+end
+vim.print = _G.dd
 
--- vim: set sw=4 et:
+-- LazyVim
+require("config.lazy")

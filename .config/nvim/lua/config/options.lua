@@ -1,43 +1,32 @@
--- shortcuts
+-- Options are automatically loaded before lazy.nvim startup
+-- Default options that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/options.lua
+-- Add any additional options here
+
 local g = vim.g -- global variables
 local opt = vim.opt -- editor options
 
--- TODO: add comments
-
--- hide buffers instead of closing them, allows changing buffers with unsaved changes
-opt.hidden = true
 opt.infercase = true
 opt.joinspaces = true
-opt.lazyredraw = true -- do not redraw screen while running macros
-opt.linebreak = true
-opt.magic = true
-opt.modeline = true -- read modelines inside files
+-- apparently this is only meant to be used temporarily
+-- opt.lazyredraw = true
 opt.showmode = true
-opt.splitright = true -- put ne window right of the current one
--- TODO: set pastetoggle=<F10>
 opt.report = 0
 opt.selection = 'exclusive'
-opt.shortmess = 'aoOIt'
 opt.showbreak = '←'
-opt.virtualedit = 'block'
 
 -- don't continue comment when inserting new line with 'o' or Enter
-opt.formatoptions:remove('o') -- o
-opt.formatoptions:remove('r') -- enter
--- something magically resets this setting, so let's do this ugly hack:
-vim.api.nvim_create_autocmd("VimEnter", {
-    once = true,
+opt.formatoptions:remove { 'r', 'o' }
+-- ftplugin/typescript.vim resets this setting, so let's do this ugly hack.
+-- To find out what it was that last modified the option, use:
+-- :verb set formatoptions
+vim.api.nvim_create_autocmd("BufEnter", {
     callback = function()
-        opt.formatoptions:remove('o')
-        opt.formatoptions:remove('r')
+        opt.formatoptions:remove { 'r', 'o' }
     end,
 })
 
-opt.mouse = 'a' -- mouse should work even in terminal
-
 opt.updatetime = 300
 
--- line numbers
 opt.numberwidth = 3 -- leave room for 3 digits by default
 opt.number = true -- traditional, also adds current line number to relative numbering
 opt.relativenumber = true -- relative for easy jumping around
@@ -49,7 +38,6 @@ opt.tabstop = 8 -- real tab is always 8, if you want something else, use spaces
 opt.softtabstop = 4
 opt.shiftwidth = 4
 opt.expandtab = true
-opt.wrap = false -- wrap long lines
 opt.textwidth = 78
 opt.breakindent = true
 opt.breakindentopt = 'shift:3'
@@ -61,15 +49,15 @@ opt.writebackup = false
 opt.swapfile = false
 
 -- undo
-opt.undolevels = 5000
+opt.undolevels = 10000
 opt.undofile = true
 
 -- symbols
 opt.fillchars = {
     vert = '│', -- vertical separator in splits, etc
-    fold = '\\' -- folded blocks TODO: ugly
 }
-opt.list = true
+
+opt.list = true -- Show some invisible characters (tabs...
 opt.listchars = {
     tab = '→ ',     -- actual tabs
     trail = '·',    -- trailing spaces
@@ -87,33 +75,11 @@ opt.sidescroll = 8
 --opt.scrolloff = 8
 opt.gdefault = true -- default to s/fdsf/fdsf/g
 
--- never show signcolumn, we are coloring the line numbers instead
-opt.signcolumn = 'no'
+-- Enable the option to require a Prettier config file
+-- If no prettier config file is found, the formatter will not be used
+vim.g.lazyvim_prettier_needs_config = false
 
--- disable built-in plugins
-local disabled_built_ins = {
-    "2html_plugin",
-    "getscript",
-    "getscriptPlugin",
-    "gzip",
-    "logipat",
-    "netrw",
-    "netrwPlugin",
-    "netrwSettings",
-    "netrwFileHandlers",
-    "matchit",
-    "tar",
-    "tarPlugin",
-    "rrhelper",
-    "spellfile_plugin",
-    "vimball",
-    "vimballPlugin",
-    "zip",
-    "zipPlugin",
-}
+-- Disable LazyVim autoformatting globally
+vim.g.autoformat = false
 
-for _, plugin in pairs(disabled_built_ins) do
-    g["loaded_" .. plugin] = 1
-end
-
--- vim: set sw=4 et:
+vim.g.trouble_lualine = true
