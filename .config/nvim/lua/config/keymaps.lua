@@ -46,4 +46,4 @@ keymap.set('c', '<C-e>', '<End>', opts)
 keymap.set('n', 'q:', ':q')
 
 -- useful things
-keymap.set('n', '<F10>', ':lua require("util.misc").toggle_crap()<CR>')
+keymap.set('n', '<F3>', ':lua require("util.misc").toggle_crap()<CR>')
