@@ -48,6 +48,13 @@ return {
                         source = true
                     }
                 },
+                inlay_hints = {
+                    -- disable inlay hints since they often just puke out a bunch of errors:
+                    --   vtsls: -32603: Request textDocument/inlayHint failed with message: <semantic> TypeScript Server Error (5.3.2)
+                    --   Debug Failure. Unexpected node.^M
+                    --   Node IndexSignature was unexpected.
+                    enabled = false
+                },
             }
             return LazyVim.merge({}, opts, ret)
         end,
