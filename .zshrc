@@ -16,8 +16,7 @@ function tmux-cwd {
 
 # If running interactively, then:
 if [ "$PS1" ]; then
-    PS1="\u@\h \w \$ "
-    PS1="%n@%m %~ %# "
+    PS1="%n@%m %2~ %# "
 
     alias ls='ls --color=auto'
 
@@ -38,7 +37,6 @@ if [ "$PS1" ]; then
             bindkey -M $m $c select-bracketed
         done
     done
-
 
     bindkey -a cs change-surround
     bindkey -a ds delete-surround
@@ -63,6 +61,22 @@ if [ "$PS1" ]; then
     fpath=(${HOME}/.zsh/completions $fpath)
     # initialise completions with ZSH's compinit
     autoload -Uz compinit && compinit
+
+    # https://git-scm.com/book/sv/v2/Bilaga-A%3A-Git-in-Other-Environments-Git-in-Zsh
+    # https://github.com/zsh-users/zsh/blob/master/Misc/vcs_info-examples
+    autoload -Uz vcs_info
+    zstyle ':vcs_info:git*' formats " (%b)"
+    precmd() {
+        vcs_info
+        if [[ -z ${vcs_info_msg_0_} ]]; then
+            # no vcs info, show PS1 with full path
+            PS1="%n@%m %~ %# "
+        else
+            # show less path components if we have vcs info
+            PS1="%n@%m %2~${vcs_info_msg_0_} %# "
+        fi
+    }
+
 fi
 
 export WORDCHARS='*?_-.[]~=/&;&%^(){}<>' # this excludes /
