@@ -19,7 +19,17 @@ return {
             opts.mapping = vim.tbl_extend("force", opts.mapping, {
                 -- completion menu randomly stays on screen, this will let us close it
                 ["<C-E>"] = cmp.mapping.abort(),
-
+                ['<CR>'] = cmp.mapping(function(fallback)
+                    if cmp.visible then
+                        if cmp.get_selected_entry() then
+                            cmp.confirm({ select = false })
+                        else
+                            fallback()
+                        end
+                    else
+                        fallback()
+                    end
+                end, { 'i', 's' }),
                 ["<C-Space>"] = cmp.mapping(function(fallback)
                     if cmp.visible() then
                         cmp.select_next_item()
