@@ -15,7 +15,7 @@ return {
         -- So we'll add snacks.nvim as a dependency as well
         dependencies = {
             "folke/trouble.nvim",
-            "snacks.nvim"
+            "folke/snacks.nvim"
         },
 
         event = "VeryLazy",

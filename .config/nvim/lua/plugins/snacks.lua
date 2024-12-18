@@ -1,6 +1,6 @@
 return {
     {
-        "snacks.nvim",
+        "folke/snacks.nvim",
         opts = {
             notifier = {
                 enabled = false
