@@ -10,7 +10,13 @@ return {
         -- but it does not work for me.
         -- Two options, either disable trouble in lualine: vim.g.trouble_lualine = false
         -- or add trouble as a dependency for lualine, so 'require' works for it early
-        dependencies = { "folke/trouble.nvim" },
+        --
+        -- Additionally lualine now throws an error: attempt to index global 'Snacks'
+        -- So we'll add snacks.nvim as a dependency as well
+        dependencies = {
+            "folke/trouble.nvim",
+            "snacks.nvim"
+        },
 
         event = "VeryLazy",
         keys = {

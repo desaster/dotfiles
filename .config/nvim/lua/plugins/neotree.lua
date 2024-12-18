@@ -1,10 +1,8 @@
 return {
     {
-        "nvim-telescope/telescope.nvim",
+        "nvim-neo-tree/neo-tree.nvim",
         keys = {
             { "<F7>", "<leader>fE", desc = "Explorer NeoTree (cwd)", remap = true },
         }
     }
 }
-
-

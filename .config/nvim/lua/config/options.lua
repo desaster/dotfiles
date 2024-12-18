@@ -75,6 +75,9 @@ opt.sidescroll = 8
 --opt.scrolloff = 8
 opt.gdefault = true -- default to s/fdsf/fdsf/g
 
+-- Disable confirm to save changes, since I'm not used to it
+opt.confirm = false
+
 -- Enable the option to require a Prettier config file
 -- If no prettier config file is found, the formatter will not be used
 vim.g.lazyvim_prettier_needs_config = false
@@ -83,3 +86,6 @@ vim.g.lazyvim_prettier_needs_config = false
 vim.g.autoformat = false
 
 vim.g.trouble_lualine = true
+
+-- disable animations as they are slow and annoying
+vim.g.snacks_animate = false
