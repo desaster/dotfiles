@@ -45,7 +45,7 @@ require("lazy").setup({
             disabled_plugins = {
                 "gzip",
                 "matchit",
-                "matchparen",
+                --"matchparen", -- snacks.nvim uses this for something
                 "netrwPlugin",
                 "tarPlugin",
                 "tohtml",
