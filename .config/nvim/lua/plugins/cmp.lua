@@ -12,7 +12,7 @@ return {
                         },
                     },
                     list = {
-                        selection = 'manual' -- do not preselect completion items
+                        selection = { preselect = false, auto_insert = false }
                     },
                 },
                 keymap = {

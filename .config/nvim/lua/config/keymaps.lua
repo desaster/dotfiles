@@ -27,6 +27,9 @@ keymap.set('n', '<A-j>', '<C-w>j', opts)
 keymap.set('n', '<A-k>', '<C-w>k', opts)
 keymap.set('n', '<A-l>', '<C-w>l', opts)
 
+-- toggle terminal
+keymap.set({ "n", "i", "t" }, "<F4>", Snacks.terminal.toggle, { desc = "Toggle term" })
+
 -- paste over currently selected text without yanking it
 keymap.set("v", "p", '"_dP', opts)
 
