@@ -89,3 +89,6 @@ vim.g.trouble_lualine = true
 
 -- disable animations as they are slow and annoying
 vim.g.snacks_animate = false
+
+-- don't use cmp (or blink) for ai suggestions
+vim.g.ai_cmp = false

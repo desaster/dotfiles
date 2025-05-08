@@ -12,14 +12,19 @@ return {
                         },
                     },
                     list = {
-                        selection = { preselect = false, auto_insert = false }
+                        selection = {
+                            -- don't preselect cmp suggestions
+                            preselect = false,
+                            -- don't automatically insert on select
+                            auto_insert = false
+                        }
                     },
                 },
                 keymap = {
                     preset = 'enter',
-                    -- Cycle selections with tab, shift-tab
-                    ['<Tab>'] = { 'select_next', 'fallback' },
-                    ['<S-Tab>'] = { 'select_prev', 'fallback' },
+                    -- Relevant keybindings for the menu:
+                    -- <C-n>, <C-p>, <C-e>, <C-space>, <CR>
+                    -- <Tab> is mapped by lazyvim to accept AI suggestion
                 },
             }
             return LazyVim.merge({}, opts, ret)

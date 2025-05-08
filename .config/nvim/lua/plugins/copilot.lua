@@ -4,6 +4,9 @@ local copilot_config = {
     {
         "zbirenbaum/copilot.lua",
         lazy = true,
+        keys = {
+            { "<leader>ai", "<cmd>Copilot toggle<cr>", desc = "Toggle (Copilot)" },
+        },
         opts = {
             -- copilot-cmp recommends disabling suggestion and panel
             -- modules, since they can interfere with copilot-cmp
@@ -11,7 +14,17 @@ local copilot_config = {
                 enabled = false,
             },
             suggestion = {
-                enabled = false,
+                enabled = not vim.g.ai_cmp, -- enable only if not using cmp/blink for ai suggestions
+                auto_trigger = true,
+                hide_during_completion = vim.g.ai_cmp,
+                keymap = {
+                    -- accept = "<tab>",
+                    -- accept_word = "...",
+                    -- accept_line = "...",
+                    next = "<M-n>",
+                    prev = "<M-p>",
+                    dismiss = "<M-BS>", -- C-BS is more difficult to bind
+                },
             },
         },
     },
