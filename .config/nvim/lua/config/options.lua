@@ -92,3 +92,6 @@ vim.g.snacks_animate = false
 
 -- don't use cmp (or blink) for ai suggestions
 vim.g.ai_cmp = false
+
+-- unnamedplus seems convenient, but in practice it gets in the way too much
+opt.clipboard:remove("unnamedplus")
