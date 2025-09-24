@@ -75,6 +75,11 @@ opt.sidescroll = 8
 --opt.scrolloff = 8
 opt.gdefault = true -- default to s/fdsf/fdsf/g
 
+-- disable spell checking by default, since it's usually the wrong language
+-- and annoys more than helps
+-- to enable, :set spell and :set spelllang=fi (or whatever language)
+opt.spell = false
+
 -- Disable confirm to save changes, since I'm not used to it
 opt.confirm = false
 
