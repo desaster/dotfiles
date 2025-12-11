@@ -65,19 +65,8 @@ return {
             -- using lualine's tabline instead of bufferline, since this
             -- themes out properly out of the box with gruvbox-material
             local ret = {
-                tabline = {
-                    lualine_a = {
-                        {
-                            'buffers',
-                            mode = 2 -- show buffer index & filename
-                        }
-                    },
-                    lualine_b = {},
-                    lualine_c = {},
-                    lualine_x = {},
-                    lualine_y = {},
-                    lualine_z = {},
-                },
+                -- let's try living without bufferline for a while
+                tabline = {},
             }
 
             LazyVim.merge(opts, ret)
