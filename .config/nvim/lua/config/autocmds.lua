@@ -9,3 +9,6 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
         vim.wo.conceallevel = 0
     end,
 })
+
+-- don't let lazyvim set spellchecking for us
+vim.api.nvim_del_augroup_by_name("lazyvim_wrap_spell")
