@@ -22,9 +22,9 @@ return {
                 },
                 keymap = {
                     preset = 'enter',
-                    -- Relevant keybindings for the menu:
-                    -- <C-n>, <C-p>, <C-e>, <C-space>, <CR>
-                    -- <Tab> is mapped by lazyvim to accept AI suggestion
+                    -- Cycle selections with tab, shift-tab
+                    ['<Tab>'] = { 'select_next', 'fallback' },
+                    ['<S-Tab>'] = { 'select_prev', 'fallback' },
                 },
             }
             return LazyVim.merge({}, opts, ret)

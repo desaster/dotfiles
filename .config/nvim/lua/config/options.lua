@@ -95,8 +95,8 @@ vim.g.trouble_lualine = true
 -- disable animations as they are slow and annoying
 vim.g.snacks_animate = false
 
--- don't use cmp (or blink) for ai suggestions
-vim.g.ai_cmp = false
-
 -- unnamedplus seems convenient, but in practice it gets in the way too much
 opt.clipboard:remove("unnamedplus")
+
+--opt.exrc = true -- allow local .nvim.lua .vimrc .exrc files
+--opt.secure = false -- disable shell and write commands in local .nvim.lua .vimrc .exrc files
