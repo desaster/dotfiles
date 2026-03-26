@@ -15,6 +15,10 @@ return {
                     height = 0.75,
                 },
             },
+            indent = {
+                -- disable indent guides
+                enabled = false
+            },
         }
     }
 }
