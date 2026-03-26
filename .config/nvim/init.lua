@@ -26,6 +26,25 @@ if vim.fn.has('unix') == 1 and vim.fn.empty(vim.env.NEOVIM_NODE_VERSION) == 0 th
     end
 end
 
+vim.g.clipboard = {
+    name = 'OSC 52',
+    copy = {
+        ['+'] = require('vim.ui.clipboard.osc52').copy('+'),
+        ['*'] = require('vim.ui.clipboard.osc52').copy('*'),
+    },
+    -- paste = {
+    --     ['+'] = require('vim.ui.clipboard.osc52').paste('+'),
+    --     ['*'] = require('vim.ui.clipboard.osc52').paste('*'),
+    -- },
+    -- alacritty has `osc52 = "CopyPaste"`, but it does not work for some
+    -- reason, so let's just disable paste this method stops neovim from
+    -- doing the annoying "Waiting for OSC 52 response from the terminal."
+    paste = {
+        ['+'] = function() return { {}, 'v' } end,
+        ['*'] = function() return { {}, 'v' } end,
+    },
+}
+
 -- Debugging
 _G.dd = function(...)
     require("util.debug").dump(...)
