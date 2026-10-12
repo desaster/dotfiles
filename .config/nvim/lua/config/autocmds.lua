@@ -6,7 +6,10 @@
 vim.api.nvim_create_autocmd({ "FileType" }, {
     pattern = { "markdown" },
     callback = function()
-        vim.wo.conceallevel = 0
+        -- not in floating windows (LSP hover, diagnostics)
+        if vim.api.nvim_win_get_config(0).relative == '' then
+            vim.wo.conceallevel = 0
+        end
     end,
 })
 
